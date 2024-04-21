@@ -2,16 +2,16 @@
 import LoginForm from "@/component/login/LoginForm";
 import Link from "next/link";
 import styled from "styled-components";
-import {LoginDiv, StyledH1} from "@/Styles/GeneralStyles";
+import { StyledH1, LandingDiv, StyledLink} from "@/Styles/GeneralStyles";
 
 export default function Login(){
     return (
         <>
-            <LoginDiv>
+            <LandingDiv>
                 <StyledH1> LOGIN PAGE </StyledH1>
                 <LoginForm/>
-                <Link href={"/"}>To Home</Link>
-            </LoginDiv>
+                <StyledLink href={"/"}>To Home</StyledLink>
+            </LandingDiv>
         </>
     );
 }

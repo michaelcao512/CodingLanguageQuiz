@@ -20,6 +20,7 @@ export const StyledButton = styled.button`
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   box-shadow: black;
+  
 `
 
 export const InputDiv = styled.div`

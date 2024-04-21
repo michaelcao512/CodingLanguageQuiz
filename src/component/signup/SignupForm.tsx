@@ -6,7 +6,7 @@ import {redirect} from "next/navigation";
 
 import {useFormState} from "react-dom";
 import {validateFormAction} from "@/lib/validation"
-import {StyledButton, StyledInput, ErrorMessage} from "@/Styles/GeneralStyles";
+import {StyledButton, StyledInput, ErrorMessage, InputDiv, StyledLabel, StyledLink} from "@/Styles/GeneralStyles";
 
 
 const initialState: SignupFormState = {
@@ -86,24 +86,24 @@ function RegisterForm() {
         <form action={formAction} onSubmit={handleSubmit}>
             <ErrorMessage>{error}</ErrorMessage>
             <div>
-                <div>
-                    <label>Name</label>
+                <InputDiv>
+                    <StyledLabel>Name</StyledLabel>
                     {interactedFields.name && <ErrorMessage>{formState.nameError}</ErrorMessage>}
                     <StyledInput type="text" name="name" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label>Email</label>
+                </InputDiv>
+                <InputDiv>
+                    <StyledLabel>Email</StyledLabel>
                     {interactedFields.email && <ErrorMessage>  {formState.emailError}</ErrorMessage>}
                     <StyledInput type="email" name="email" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label>Password</label>
+                </InputDiv>
+                <InputDiv>
+                    <StyledLabel>Password</StyledLabel>
                     {interactedFields.password && <ErrorMessage>  {formState.passwordError}</ErrorMessage>}
                     <StyledInput type="password" name="password" onChange={handleChange}/>
-                </div>
+                </InputDiv>
                 <div>
                     <StyledButton type="submit" disabled={formState.buttonDisabled}>Register</StyledButton>
-                    <Link href="/login">Already have an account? Log in </Link>
+                    <StyledLink href="/login">Already have an account? Log in </StyledLink>
                 </div>
             </div>
         </form>
