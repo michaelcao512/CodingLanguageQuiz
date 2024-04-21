@@ -1,23 +1,10 @@
 "use client"
 import Link from "next/link";
 import styled from "styled-components";
+import {LandingDiv, StyledH1} from "@/Styles/GeneralStyles";
 
 
-const LandingDiv=styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  align-content: center;
-  align-items: center;
-`
-const StyledH1=styled.h1`
-  font-family: Satoshi, sans-serif;
-`
 
-const StyledLink= styled.link`
-  font-family: Satoshi, sans-serif;
-  
-`
 
 export default function Home() {
   return (
@@ -25,6 +12,7 @@ export default function Home() {
           <LandingDiv>
               <StyledH1> Personality Quiz! </StyledH1>
 
+                <Link href="/register">To Register </Link>
               <Link href="/login">To Login </Link>
               <Link href={"/quizlanding"}>To Quiz Landing</Link>
           </LandingDiv>
