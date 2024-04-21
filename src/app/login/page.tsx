@@ -3,6 +3,7 @@ import LoginForm from "@/app/component/login/LoginForm";
 import Link from "next/link";
 import styled from "styled-components";
 
+
 const StyledH1 = styled.h1`
   align-items: center;
   font-family: Satoshi, sans-serif;

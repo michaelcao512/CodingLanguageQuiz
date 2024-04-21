@@ -1,5 +1,8 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
+const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700&display=swap');
+`;
 
 export const StyledInput = styled.input`
   padding: 5px;
@@ -20,14 +23,21 @@ export const StyledButton = styled.button`
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   box-shadow: black;
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
 `
 
 export const InputDiv = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
+  align-items: center;
+  align-content: center;
 `
 
-export const StyledLabel = styled.label`
-  font-family: 'Poppins', sans-serif;
+
+export const StyledLabel=styled.label`
+  font-family: Satoshi Variable, sans-serif;
+  font-weight: normal;
 `

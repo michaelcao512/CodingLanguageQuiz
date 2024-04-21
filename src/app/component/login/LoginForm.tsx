@@ -2,9 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import {InputDiv, StyledButton, StyledInput} from "./LoginStyles";
-import styled from "styled-components";
-
+import {InputDiv, StyledButton, StyledInput, StyledLabel} from "./LoginStyles";
 
 
 export default function LoginForm() {
@@ -40,9 +38,9 @@ export default function LoginForm() {
         <div>
             <form onSubmit={handleSubmit}>
                 <InputDiv>
-                    <label>Email</label>
+                    <StyledLabel>Email</StyledLabel>
                     <StyledInput type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <label>Password</label>
+                    <StyledLabel>Password</StyledLabel>
                     <StyledInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </InputDiv>
                 <StyledButton type="submit">Login</StyledButton>
