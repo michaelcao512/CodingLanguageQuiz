@@ -1,20 +1,8 @@
 "use client"
-import LoginForm from "@/app/component/login/LoginForm";
+import LoginForm from "@/component/login/LoginForm";
 import Link from "next/link";
 import styled from "styled-components";
-
-const StyledH1 = styled.h1`
-  align-items: center;
-  font-family: Satoshi, sans-serif;
-`
-
-const LoginDiv=styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  align-content: center;
-  align-items: center;
-`
+import {LoginDiv, StyledH1} from "@/Styles/GeneralStyles";
 
 export default function Login(){
     return (
