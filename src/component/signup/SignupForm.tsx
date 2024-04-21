@@ -103,9 +103,10 @@ function RegisterForm() {
                 </InputDiv>
                 <div>
                     <StyledButton type="submit" disabled={formState.buttonDisabled}>Register</StyledButton>
-                    <StyledLink href="/login">Already have an account? Log in </StyledLink>
                 </div>
+
             </div>
+            <StyledLink href="/login">Already have an account? Log in </StyledLink>
         </form>
     );
 

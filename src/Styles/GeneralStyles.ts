@@ -18,13 +18,16 @@ export const StyledInput = styled.input`
   display: flex;
   margin: auto;
   margin-bottom: 20px;
-  
+
 `
 
 export const StyledH1 = styled.h1`
   align-items: center;
   font-family: 'Satoshi', sans-serif;
   font-weight: bold;
+  padding-right: 10px;
+  padding-left: 10px;
+  
 `
 
 export const LoginDiv=styled.div`
@@ -51,8 +54,10 @@ export const StyledButton = styled.button`
 export const InputDiv = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   align-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `
 
 export const StyledLabel = styled.label`
@@ -69,13 +74,26 @@ export const LandingDiv=styled.div`
   height: 100vh;
 `
 
+export const StyledContainer=styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px 50px;
+  background: linear-gradient(0deg, #d0c6ff, #ffccd5);
+  border: 3px solid #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.31);
+`
+
 export const ErrorMessage = styled.span`
     color: red;
     text-transform: uppercase;
 `;
 
 export const StyledLink=styled.a`
-    font-family: 'Satoshi', sans-serif;
-    color: blue;
-    font-weight: lighter;
+  padding-top: 20px;
+  font-family: 'Satoshi', sans-serif;
+  color: #4e3280;
+  font-weight: lighter;
 `;

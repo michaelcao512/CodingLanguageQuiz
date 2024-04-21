@@ -2,7 +2,7 @@
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 import RegisterForm from "@/component/signup/SignupForm";
-import {LandingDiv, StyledH1} from "@/Styles/GeneralStyles";
+import {LandingDiv, StyledH1, StyledContainer} from "@/Styles/GeneralStyles";
 
 export default async function RegisterPage() {
     const session = await getServerSession();
@@ -14,8 +14,10 @@ export default async function RegisterPage() {
     return (
         <>
             <LandingDiv>
-                <StyledH1>Register</StyledH1>
-                <RegisterForm/>
+                <StyledContainer>
+                    <StyledH1>Register</StyledH1>
+                    <RegisterForm/>
+                </StyledContainer>
             </LandingDiv>
         </>
 
