@@ -1,12 +1,7 @@
 import {NextAuthOptions} from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-
-type User = {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-}
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import prisma from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -21,17 +16,26 @@ export const authOptions: NextAuthOptions = {
                     // if email or password is not provided
                     return null
                 }
-                const user = usersDB.find(user => user.email === credentials.email && user.password === credentials.password)
+
+                const inputEmail = credentials.email
+                const inputPassword = credentials.password
+                const user = await prisma.user.findFirst({
+                    where: {
+                        email: inputEmail,
+                        password: inputPassword
+                    }
+                })
+
+                // if user is unauthorized
                 if (!user) {
-                    // if login credentials are invalid
-                    return null;
+                    return null
                 }
+
                 // user is authorized
                 return {
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    password: user.password
                 } as any
             }
         }),
@@ -45,20 +49,3 @@ export const authOptions: NextAuthOptions = {
         signIn: '/',
     },
 }
-
-// dummy user data
-const usersDB = [
-    {
-        id: 1,
-        name: "abc",
-        email: "abc@gmail.com",
-        password: "123456"
-    },
-    {
-        id: 2,
-        name: "test",
-        email: "test@gmail.com",
-        password: "password"
-    }
-]
-

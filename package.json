@@ -6,12 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "prisma migrate dev",
+    "generate": "prisma generate",
+    "studio": "prisma studio"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^0.4.4-canary.81",
+    "@prisma/client": "^5.12.1",
     "@react-spring/web": "^9.7.3",
     "next": "14.2.2",
     "next-auth": "^4.24.7",
+    "prisma": "^5.12.1",
     "react": "^18",
     "react-dom": "^18",
     "styled-components": "^6.1.8"
