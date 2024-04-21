@@ -20,7 +20,7 @@ export const StyledButton = styled.button`
   border-width: thin;
   background-color: black;
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi Variable', sans-serif;
   font-weight: bold;
   box-shadow: black;
   display: flex;
@@ -38,6 +38,6 @@ export const InputDiv = styled.div`
 
 
 export const StyledLabel=styled.label`
-  font-family: Satoshi Variable, sans-serif;
+  font-family: 'Satoshi Variable', sans-serif;
   font-weight: normal;
 `

@@ -11,11 +11,11 @@ const LandingDiv=styled.div`
   align-items: center;
 `
 const StyledH1=styled.h1`
-  font-family: Satoshi, sans-serif;
+  font-family: 'Satoshi Variable', sans-serif;
 `
 
 const StyledLink= styled.link`
-  font-family: Satoshi, sans-serif;
+  font-family: 'Satoshi Variable', sans-serif;
   
 `
 
