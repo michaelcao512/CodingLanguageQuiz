@@ -2,7 +2,7 @@
 import styled, {createGlobalStyle} from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-
+  @import url('https://fonts.cdnfonts.com/css/satoshi');
 `;
 
 
@@ -18,7 +18,8 @@ export const StyledInput = styled.input`
 
 export const StyledH1 = styled.h1`
   align-items: center;
-  font-family: Satoshi, sans-serif;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: bold;
 `
 
 export const LoginDiv=styled.div`
@@ -35,7 +36,7 @@ export const StyledButton = styled.button`
   border-width: thin;
   background-color: black;
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-weight: bold;
   box-shadow: black;
 `
@@ -47,7 +48,7 @@ export const InputDiv = styled.div`
 `
 
 export const StyledLabel = styled.label`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
 `
 
 export const LandingDiv=styled.div`
@@ -61,4 +62,10 @@ export const LandingDiv=styled.div`
 export const ErrorMessage = styled.span`
     color: red;
     text-transform: uppercase;
+`;
+
+export const StyledLink=styled.a`
+    font-family: 'Satoshi', sans-serif;
+    color: blue;
+    font-weight: lighter;
 `;

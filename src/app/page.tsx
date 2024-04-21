@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import styled from "styled-components";
-import {LandingDiv, StyledH1} from "@/Styles/GeneralStyles";
+import {LandingDiv, StyledH1, StyledLink} from "@/Styles/GeneralStyles";
 
 
 
@@ -12,9 +12,9 @@ export default function Home() {
           <LandingDiv>
               <StyledH1> Personality Quiz! </StyledH1>
 
-                <Link href="/register">To Register </Link>
-              <Link href="/login">To Login </Link>
-              <Link href={"/quizlanding"}>To Quiz Landing</Link>
+              <StyledLink href="/register">To Register </StyledLink>
+              <StyledLink href="/login">To Login </StyledLink>
+              <StyledLink href={"/quizlanding"}>To Quiz Landing</StyledLink>
           </LandingDiv>
       </>
   );
