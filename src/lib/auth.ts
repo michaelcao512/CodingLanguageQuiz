@@ -1,12 +1,8 @@
 import {NextAuthOptions} from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-
-type User = {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-}
+import {PrismaAdapter} from "@next-auth/prisma-adapter";
+import prisma from "@/lib/prisma";
+import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -21,17 +17,39 @@ export const authOptions: NextAuthOptions = {
                     // if email or password is not provided
                     return null
                 }
-                const user = usersDB.find(user => user.email === credentials.email && user.password === credentials.password)
+
+                const inputEmail = credentials.email
+                const inputPassword = bcrypt.hashSync(credentials.password, 10)
+                console.log(inputPassword)
+
+                const user = await prisma.user.findFirst({
+                    where: {
+                        email: inputEmail,
+                    }
+                })
+
                 if (!user) {
-                    // if login credentials are invalid
-                    return null;
+                    // if user is not found
+                    return null
                 }
+
+                if (!user.password) {
+                    // if user does not have a password
+                    return null
+                }
+
+                const passwordMatch = bcrypt.compareSync(credentials.password, user.password)
+
+                if (!passwordMatch) {
+                    // if password does not match
+                    return null
+                }
+
                 // user is authorized
                 return {
                     id: user.id,
                     name: user.name,
                     email: user.email,
-                    password: user.password
                 } as any
             }
         }),
@@ -45,20 +63,3 @@ export const authOptions: NextAuthOptions = {
         signIn: '/',
     },
 }
-
-// dummy user data
-const usersDB = [
-    {
-        id: 1,
-        name: "abc",
-        email: "abc@gmail.com",
-        password: "123456"
-    },
-    {
-        id: 2,
-        name: "test",
-        email: "test@gmail.com",
-        password: "password"
-    }
-]
-

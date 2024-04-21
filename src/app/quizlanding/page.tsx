@@ -1,11 +1,16 @@
 import Link from "next/link";
+import { StyledH1, LandingDiv, StyledLink, StyledContainer } from "@/Styles/GeneralStyles";
 
 export default function QuizLanding(){
     return (
         <>
-            <h1> QUIZ LANDING PAGE </h1>
+            <LandingDiv>
+                <StyledContainer>
+                    <StyledH1> Welcome to the Quiz </StyledH1>
 
-            <Link href="/">To Home</Link>
+                    <StyledLink href="/">To Home</StyledLink>
+                </StyledContainer>
+            </LandingDiv>
         </>
     );
 }

@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import {InputDiv, StyledButton, StyledInput, StyledLabel} from "./LoginStyles";
-
+import {InputDiv, StyledButton, StyledInput, StyledLabel} from "@/Styles/GeneralStyles";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");

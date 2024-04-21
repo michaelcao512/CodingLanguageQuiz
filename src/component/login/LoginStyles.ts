@@ -1,8 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.cdnfonts.com/css/satoshi');
-`;
 
 export const StyledInput = styled.input`
   padding: 5px;
@@ -20,24 +17,18 @@ export const StyledButton = styled.button`
   border-width: thin;
   background-color: black;
   color: white;
-  font-family: 'Satoshi', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: bold;
   box-shadow: black;
-  display: flex;
-  margin: auto;
-  margin-top: 10px;
+  
 `
 
 export const InputDiv = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 10px;
-  align-items: center;
-  align-content: center;
 `
 
-
-export const StyledLabel=styled.label`
-  font-family: 'Satoshi', sans-serif;
-  font-weight: normal;
+export const StyledLabel = styled.label`
+  font-family: 'Poppins', sans-serif;
 `

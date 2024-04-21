@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import {GlobalStyle} from "@/app/component/GeneralStyles";
+import { Inter } from "next/font/google";
+import StyledComponentsRegistry from "@/lib/registry";
+import {GlobalStyle} from "@/Styles/GeneralStyles";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -7,14 +10,20 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <GlobalStyle />
-      <body >{children}</body>
+      <body >
+      <GlobalStyle/>
+      <StyledComponentsRegistry>
+          {children}
+      </StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
+
