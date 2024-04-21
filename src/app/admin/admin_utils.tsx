@@ -1,6 +1,6 @@
 "use client"
-import {deleteUser} from "@/lib/database";
-import React from 'react';
+import {createPersonalityType, deleteUser} from "@/lib/database";
+import React, {Dispatch, SetStateAction} from 'react';
 
 export function DeleteUserButton(params: {id: number}){
 

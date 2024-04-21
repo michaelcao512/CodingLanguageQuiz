@@ -17,7 +17,7 @@ export async function GET() {
 
 
 type reqBody = {
-    "text": string;
+    "question": string;
     "choices": {
         "text": string;
         "personalityTypeId": number;
@@ -25,10 +25,13 @@ type reqBody = {
 }
 export async function POST (req: NextRequest){
     const body: reqBody = await req.json()
-    const {text, choices} = body;
+    console.log(body);
+
+    const {question, choices} = body;
+    console.log(choices);
     const newQuestion = await prisma.question.create({
         data: {
-            text: text,
+            text: question,
             choices: {
                 create: choices.map((choice: { text: string; personalityTypeId: number; }) => {
                     return {
@@ -40,7 +43,7 @@ export async function POST (req: NextRequest){
                         }
                     }
                 })
-            }
+            },
         },
         include: {
             choices: {

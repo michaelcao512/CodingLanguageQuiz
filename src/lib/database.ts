@@ -115,6 +115,18 @@ export async function deleteAllPersonalityTypes(){
 
 
 export async function createPersonalityType(name: string, description: string){
+    const newPersonalityType = await fetch("http://localhost:3000/api/personalityType",
+        {
+            method: "POST",
+            body: JSON.stringify({
+                name: name,
+                description: description
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    return newPersonalityType;
 
 
 }
