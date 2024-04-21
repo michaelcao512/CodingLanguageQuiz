@@ -106,7 +106,6 @@ function RegisterForm() {
                 </div>
 
             </div>
-            <StyledLink href="/login">Already have an account? Log in </StyledLink>
         </form>
     );
 

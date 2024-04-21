@@ -29,8 +29,14 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // delete user by id
-export async function DELETE({ params }: { params: { id: string } }) {
-    const id = params.id;
-    const user: User = await prisma.user.delete({ where: { id: parseInt(id) } });
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+    console.log("API DELETING USER");
+    console.log(params);
+    const id = parseInt(params.id);
+    if (!id) {
+        return NextResponse.json({ message: "id not found" });
+    }
+    console.log("ID: " , id);
+    const user: User = await prisma.user.delete({ where: { id: id} });
     return NextResponse.json({ message: "user deleted", user });
 }
