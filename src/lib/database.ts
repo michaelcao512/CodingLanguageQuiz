@@ -13,12 +13,12 @@ type QuestionBody = {
 
 // USERS
 export async function getAllUsers(){
-    const users =  await fetch("http://localhost:3000/api/users/all")
+    const users =  await fetch("api/users/all")
     const usersData =  await users.json();
     return usersData;
 }
 export async function deleteAllUsers(){
-    const deletedUsers = await fetch("http://localhost:3000/api/users/all",
+    const deletedUsers = await fetch("api/users/all",
         {
             method: "DELETE"
         })
@@ -26,7 +26,7 @@ export async function deleteAllUsers(){
 }
 
 export async function createUser(name: string, email: string, password: string){
-    const newUser = await fetch("http://localhost:3000/api/users/register",
+    const newUser = await fetch("api/users/register",
         {
             method: "POST",
             body: JSON.stringify({
@@ -61,13 +61,13 @@ export async function deleteUser(id: number){
 
 // QUESTIONS
 export async function getAllQuestions(){
-    const questions = await fetch("http://localhost:3000/api/questions")
+    const questions = await fetch("api/questions")
     const questionsData = await questions.json();
     return questionsData;
 }
 
 export async function createQuestion(question: string, choices: {text: string, personalityTypeId: number}[]){
-    const newQuestion = await fetch("http://localhost:3000/api/questions",
+    const newQuestion = await fetch("api/questions",
         {
             method: "POST",
             body: JSON.stringify({
@@ -82,16 +82,24 @@ export async function createQuestion(question: string, choices: {text: string, p
 }
 
 export async function deleteQuestion(id: number){
-    const deletedQuestion = await fetch(`http://localhost:3000/api/questions/${id}`,
+    const deletedQuestion = await fetch(`api/questions/${id}`,
         {
             method: "DELETE"
         })
     return deletedQuestion;
 }
 
+export async function getQuestion(id: number){
+    const question = await fetch(`api/questions/${id}`)
+    const questionData = await question.json();
+    return questionData;
+
+}
+
+
 // choices
 export async function deleteChoice(id: number){
-    const deletedChoice = await fetch(`http://localhost:3000/api/questions/choice/${id}`,
+    const deletedChoice = await fetch(`api/questions/choice/${id}`,
         {
             method: "DELETE"
         })
@@ -101,12 +109,12 @@ export async function deleteChoice(id: number){
 
 // PERSONALITY TYPES
 export async function getAllPersonalityTypes(){
-    const personalityTypes = await fetch ("http://localhost:3000/api/personalityType")
+    const personalityTypes = await fetch ("api/personalityType")
     const personalityTypesData = await personalityTypes.json();
     return personalityTypesData;
 }
 export async function deleteAllPersonalityTypes(){
-    const deletedPersonalityTypes = await fetch("http://localhost:3000/api/personalityType",
+    const deletedPersonalityTypes = await fetch("api/personalityType",
         {
             method: "DELETE"
         })
@@ -115,7 +123,7 @@ export async function deleteAllPersonalityTypes(){
 
 
 export async function createPersonalityType(name: string, description: string){
-    const newPersonalityType = await fetch("http://localhost:3000/api/personalityType",
+    const newPersonalityType = await fetch("api/personalityType",
         {
             method: "POST",
             body: JSON.stringify({
@@ -131,7 +139,7 @@ export async function createPersonalityType(name: string, description: string){
 
 }
 export async function deletePersonalityType(id: number){
-    const deletedPersonalityType = await fetch(`http://localhost:3000/api/personalityType/${id}`,
+    const deletedPersonalityType = await fetch(`api/personalityType/${id}`,
         {
             method: "DELETE"
         }

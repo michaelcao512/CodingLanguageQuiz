@@ -88,7 +88,7 @@ export default function Admin() {
         for (let i = 1; i <= numChoices; i++) {
             const choiceText = data.get(`choiceText${i}`) as string;
             const personalityTypeId = parseInt(data.get(`personalityTypeId${i}`) as string);
-git
+
             console.log(choiceText, personalityTypeId)
             if (!choiceText || isNaN(personalityTypeId)) {
                 continue;
