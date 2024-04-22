@@ -4,7 +4,11 @@ import Link from "next/link";
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.cdnfonts.com/css/satoshi');
-
+    body {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
 `;
 
 
@@ -67,11 +71,12 @@ export const StyledLabel = styled.label`
     margin: auto;
 `
 
-export const LandingDiv = styled.div`
+export const LandingDiv = styled.div`  
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     height: 100vh;
 `
 
@@ -80,10 +85,13 @@ export const StyledContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     padding: 20px 30px 50px;
+    
     background: linear-gradient(0deg, #d0c6ff, #ffccd5);
     border: 3px solid #ffffff;
     border-radius: 20px;
+    
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.31);
 `
 
@@ -93,8 +101,13 @@ export const ErrorMessage = styled.span`
 `;
 
 export const StyledLink = styled(Link)`
-    padding-top: 20px;
+    padding: 1rem 0;
     font-family: 'Satoshi', sans-serif;
     color: #4e3280;
     font-weight: lighter;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+      }
 `;
