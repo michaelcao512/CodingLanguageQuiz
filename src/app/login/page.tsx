@@ -9,7 +9,7 @@ export default function Login(){
         <>
             <LandingDiv>
                 <StyledContainer>
-                    <StyledH1> LOGIN PAGE </StyledH1>
+                    <StyledH1> ~Login~ </StyledH1>
                     <LoginForm/>
                     <StyledLink href={"/"}>To Home</StyledLink>
                 </StyledContainer>

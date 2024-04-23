@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.cdnfonts.com/css/satoshi');
-
 `;
 
 
@@ -19,13 +18,18 @@ export const StyledInput = styled.input`
     display: flex;
     margin: auto;
     margin-bottom: 20px;
-
 `
+export const StyledCustomLink = styled.a`
+  font-family: 'Satoshi', sans-serif;
+  color: #4e3280;
+  text-decoration: none; 
+  cursor: pointer;
+`;
 
 export const StyledH1 = styled.h1`
     align-items: center;
     font-family: 'Satoshi', sans-serif;
-    font-weight: bold;
+    font-weight: 900;
     padding-right: 10px;
     padding-left: 10px;
 
@@ -40,16 +44,21 @@ export const LoginDiv = styled.div`
 `
 
 export const StyledButton = styled.button`
-    padding: 5px 20px 5px 20px;
-    border-radius: 4px;
-    border-width: thin;
-    background-color: black;
-    color: white;
-    font-family: 'Satoshi', sans-serif;
-    font-weight: bold;
-    box-shadow: black;
-    display: flex;
-    margin: auto;
+  padding: 10px 45px;
+  border-radius: 31px;
+  //border-width: thin;
+  background: linear-gradient(to right, #5B4EF0, #67B6FF);
+  color: white;
+  font-family: 'Satoshi', sans-serif;
+  font-weight: normal;
+  //box-shadow: black;
+  display: flex;
+  margin: auto;
+  font-size: 15pt;
+  border: none;
+  margin-left: 5px;
+  margin-right: 5px;
+  border: none;
 `
 
 export const InputDiv = styled.div`
@@ -76,25 +85,34 @@ export const LandingDiv = styled.div`
 `
 
 export const StyledContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 30px 50px;
-    background: linear-gradient(0deg, #d0c6ff, #ffccd5);
-    border: 3px solid #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.31);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px 50px;
+  background: linear-gradient(0deg, #fafafa, #ffffff);
+  border: 3px solid #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.14);
 `
 
 export const ErrorMessage = styled.span`
-    color: red;
-    text-transform: uppercase;
+  color: #942c2c;
+  text-transform: uppercase;
 `;
 
 export const StyledLink = styled(Link)`
     padding-top: 20px;
     font-family: 'Satoshi', sans-serif;
     color: #4e3280;
-    font-weight: lighter;
+    //font-weight: lighter;
+`;
+
+export const StyledP=styled.p`
+  padding-top: 10px;
+  font-family: 'Satoshi', sans-serif;
+  color: #4e3280;
+  font-weight: lighter;
+
+
 `;
