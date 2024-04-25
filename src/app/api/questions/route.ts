@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import {NextRequest, NextResponse} from "next/server";
 
 export async function GET() {
-    const questions = await prisma.question.findMany({
+    const questions: question[] = await prisma.question.findMany({
             include: {
                 choices: {
                     include: {
@@ -15,16 +15,8 @@ export async function GET() {
     return NextResponse.json(questions);
 }
 
-
-type reqBody = {
-    "question": string;
-    "choices": {
-        "text": string;
-        "personalityTypeId": number;
-    }[]
-}
 export async function POST (req: NextRequest){
-    const body: reqBody = await req.json()
+    const body: questionReqBody = await req.json()
     console.log(body);
 
     const {question, choices} = body;

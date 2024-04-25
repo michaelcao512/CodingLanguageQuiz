@@ -1,32 +1,26 @@
 import prisma from "@/lib/prisma";
-import bcrypt from "bcryptjs";
-
-type QuestionBody = {
-    text: string,
-    choices: {
-        text: string,
-        personalityTypeId: number
-    }[]
-
-}
-
 
 // USERS
-export async function getAllUsers(){
-    const users =  await fetch("api/users/all")
-    const usersData =  await users.json();
-    return usersData;
+
+// gets all users
+export async function getAllUsers() {
+    const users = await fetch("api/users/all")
+
+    return await users.json();
 }
-export async function deleteAllUsers(){
-    const deletedUsers = await fetch("api/users/all",
+
+// deletes all user
+export async function deleteAllUsers() {
+    return await fetch("api/users/all",
         {
             method: "DELETE"
         })
-    return deletedUsers;
+
 }
 
-export async function createUser(name: string, email: string, password: string){
-    const newUser = await fetch("api/users/register",
+// creates a user given a name, email, and password
+export async function createUser(name: string, email: string, password: string) {
+    return await fetch("api/users/register",
         {
             method: "POST",
             body: JSON.stringify({
@@ -38,36 +32,45 @@ export async function createUser(name: string, email: string, password: string){
                 "Content-Type": "application/json"
             }
         })
-    return newUser;
-
-    // const hashedPassword = await bcrypt.hash(password, 10);
-    // const newUser = await prisma.user.create({
-    //     data: {
-    //         name: name,
-    //         email: email,
-    //         password: hashedPassword
-    //     }
-    // });
-    // return newUser;
 }
-export async function deleteUser(id: number){
-    const deletedUser = await fetch(`http://localhost:3000/api/users/${id}`,
+
+// deletes a user by id
+export async function deleteUser(id: number) {
+    return await fetch(`http://localhost:3000/api/users/${id}`,
         {
             method: "DELETE",
         })
-    return deletedUser;
 }
 
 
 // QUESTIONS
-export async function getAllQuestions(){
+/*
+type question =
+    {
+        id: number;
+        text: string;
+        choices: {
+            id: number;
+            text: string;
+            personalityTypeId: number;
+            personalityType: {
+                id: number;
+                name: string;
+                description: string;
+            }
+        }[]
+    }
+ */
+
+// gets all questions
+export async function getAllQuestions(): Promise<question[]> {
     const questions = await fetch("api/questions")
-    const questionsData = await questions.json();
-    return questionsData;
+    return await questions.json();
 }
 
-export async function createQuestion(question: string, choices: {text: string, personalityTypeId: number}[]){
-    const newQuestion = await fetch("api/questions",
+// creates a question given a question string and an array of choices
+export async function createQuestion(question: string, choices: { text: string, personalityTypeId: number }[]) {
+    return await fetch("api/questions",
         {
             method: "POST",
             body: JSON.stringify({
@@ -78,52 +81,52 @@ export async function createQuestion(question: string, choices: {text: string, p
                 "Content-Type": "application/json"
             }
         })
-    return newQuestion;
 }
 
-export async function deleteQuestion(id: number){
-    const deletedQuestion = await fetch(`api/questions/${id}`,
+// deletes a question by id
+export async function deleteQuestion(id: number) {
+    return await fetch(`api/questions/${id}`,
         {
             method: "DELETE"
         })
-    return deletedQuestion;
 }
 
-export async function getQuestion(id: number){
+// get a question by id
+export async function getQuestion(id: number) {
     const question = await fetch(`api/questions/${id}`)
-    const questionData = await question.json();
-    return questionData;
-
+    return await question.json();
 }
 
 
 // choices
-export async function deleteChoice(id: number){
-    const deletedChoice = await fetch(`api/questions/choice/${id}`,
+export async function deleteChoice(id: number) {
+    return await fetch(`api/questions/choice/${id}`,
         {
             method: "DELETE"
         })
-    return deletedChoice;
+
 }
 
 
 // PERSONALITY TYPES
-export async function getAllPersonalityTypes(){
-    const personalityTypes = await fetch ("api/personalityType")
-    const personalityTypesData = await personalityTypes.json();
-    return personalityTypesData;
+export async function getAllPersonalityTypes() {
+    const personalityTypes = await fetch("api/personalityType")
+    return await personalityTypes.json();
+
 }
-export async function deleteAllPersonalityTypes(){
-    const deletedPersonalityTypes = await fetch("api/personalityType",
+
+// deletes all personality types
+export async function deleteAllPersonalityTypes() {
+    return await fetch("api/personalityType",
         {
             method: "DELETE"
         })
-    return deletedPersonalityTypes;
+
 }
 
-
-export async function createPersonalityType(name: string, description: string){
-    const newPersonalityType = await fetch("api/personalityType",
+// creates a personality type given a name and description
+export async function createPersonalityType(name: string, description: string) {
+   return await fetch("api/personalityType",
         {
             method: "POST",
             body: JSON.stringify({
@@ -134,19 +137,19 @@ export async function createPersonalityType(name: string, description: string){
                 "Content-Type": "application/json"
             }
         })
-    return newPersonalityType;
-
-
 }
-export async function deletePersonalityType(id: number){
-    const deletedPersonalityType = await fetch(`api/personalityType/${id}`,
+
+// deletes personality type by id
+export async function deletePersonalityType(id: number) {
+    return await fetch(`api/personalityType/${id}`,
         {
             method: "DELETE"
         }
-        );
-    return deletedPersonalityType;
+    );
 }
-export async function updatePersonalityType(id: number, name: string, description: string){
+
+// TODO: updates a personality type given a personality type id, name, and description
+export async function updatePersonalityType(id: number, name: string, description: string) {
     if (!name && !description) {
         return {
             error: "No fields to update"
