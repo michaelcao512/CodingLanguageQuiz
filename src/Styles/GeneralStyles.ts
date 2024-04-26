@@ -51,7 +51,7 @@ export const StyledButton = styled.button`
   color: white;
   font-family: 'Satoshi', sans-serif;
   font-weight: normal;
-  //box-shadow: black;
+  //box-shadow: black;pm
   display: flex;
   margin: auto;
   font-size: 15pt;
