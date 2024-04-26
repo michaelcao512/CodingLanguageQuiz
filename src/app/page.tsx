@@ -1,12 +1,7 @@
-"use client"
-import Link from "next/link";
-import styled from "styled-components";
 import {LandingDiv, StyledH1, StyledLink, StyledContainer} from "@/Styles/GeneralStyles";
-
-
-
-
 export default function Home() {
+
+
   return (
     <LandingDiv>
         <StyledContainer>

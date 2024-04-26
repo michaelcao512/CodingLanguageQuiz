@@ -2,6 +2,7 @@ type createUserRequest = {
     name: string;
     email: string;
     password: string;
+    biography: string;
 }
 
 type SignupFormState = {
@@ -9,6 +10,7 @@ type SignupFormState = {
         name: string;
         email: string;
         password: string;
+        biography: string;
     }
     buttonDisabled: boolean;
     nameError?: string;

@@ -1,19 +1,22 @@
 "use client"
-import React, {useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 
-import Link from "next/link";
 import {redirect} from "next/navigation";
 
 import {useFormState} from "react-dom";
 import {validateFormAction} from "@/lib/validation"
 import {StyledButton, StyledInput, ErrorMessage, InputDiv, StyledLabel, StyledLink} from "@/Styles/GeneralStyles";
+import {QuizFlowContext} from "@/lib/context";
+import {createUserChoices} from "@/lib/database";
+import {User} from "@prisma/client";
 
 
 const initialState: SignupFormState = {
     formData: {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        biography: ''
     },
     buttonDisabled: true,
     nameError: '',
@@ -23,6 +26,8 @@ const initialState: SignupFormState = {
 
 
 function RegisterForm() {
+    const context = useContext(QuizFlowContext)
+
     const [formState, formAction] = useFormState(validateFormAction, initialState);
     const [error, setError] = useState('');
 
@@ -37,6 +42,8 @@ function RegisterForm() {
     const [userRegistered, setUserRegistered] = useState(false);
     useEffect(() => {
         if (userRegistered) {
+            // creates associated UserChoices objects for user
+            createUserChoices(context.userId, context.userChoices).then(r => console.log(r));
             redirect('/login');
         }
     }, [userRegistered]);
@@ -52,8 +59,8 @@ function RegisterForm() {
 
     // submit form
     async function handleSubmit() {
-        const {name, email, password} = formState.formData;
-        const body = JSON.stringify({name, email, password});
+        const {name, email, password, biography} = formState.formData;
+        const body = JSON.stringify({name, email, password, biography});
         const emailFetch = await fetch(`api/users/register/checkAvailable/email/${email}`);
         const emailData = await emailFetch.json();
 
@@ -68,14 +75,16 @@ function RegisterForm() {
 
 
 
-        const user = await fetch('api/users/register', {
+        const response = await fetch('api/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: body
         });
-        if (user.status === 200) {
+        const data = await response.json();
+        if (response.status === 200) {
+            context.setUserId(data.user.id);
             setUserRegistered(true);
         } else {
             setError("Unable to register user");
@@ -100,6 +109,10 @@ function RegisterForm() {
                     <StyledLabel>Password</StyledLabel>
                     {interactedFields.password && <ErrorMessage>  {formState.passwordError}</ErrorMessage>}
                     <StyledInput type="password" name="password" onChange={handleChange}/>
+                </InputDiv>
+                <InputDiv>
+                    <StyledLabel>Biography</StyledLabel>
+                    <StyledInput type="text" name="biography" onChange={handleChange}/>
                 </InputDiv>
                 <div>
                     <StyledButton type="submit" disabled={formState.buttonDisabled}>Register</StyledButton>

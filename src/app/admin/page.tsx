@@ -8,29 +8,18 @@ import {User, PersonalityType, Question, Choice} from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 
-type questionResponse =
-    {
-        id: number;
-        text: string;
-        choices: [
-            {
-                id: number;
-                text: string;
-                personalityTypeId: number;
-                personalityType: {
-                    id: number;
-                    name: string;
-                    description: string;
-                }
-            }
-        ]
-    }
-
+//     ADMIN PAGE (not meant for viewing)
+//  allows actions on database
+//  - READ all users
+//  - READ all questions
+//  - READ all personality types
+//  - CREATE a question
+//  - CREATE a personality type
 
 export default function Admin() {
     const [users, setUsers] = useState<User[]>([]);
     const [personalityTypes, setPersonalityTypes] = useState<PersonalityType[]>([]);
-    const [questions, setQuestions] = useState<questionResponse[]>([]);
+    const [questions, setQuestions] = useState<question[]>([]);
     const [change, setChange] = useState<boolean>(false);
 
     const [numChoices, setNumChoices] = useState<number>(0);
@@ -42,23 +31,11 @@ export default function Admin() {
             const personalityTypesData: PersonalityType[] = await getAllPersonalityTypes();
             const questionsData: any[] = await getAllQuestions();
 
-            const unencryptedUsers = await Promise.all(usersData.map((user: User) => {
-                if (!user.password) {
-                    return user;
-                }
-                const pass = bcrypt.hashSync(user.password, 10);
-                return {
-                    ...user,
-                    password: pass
-                };
-                // code
-            }));
-
-            setUsers(unencryptedUsers);
+            setUsers(usersData);
             setPersonalityTypes(personalityTypesData);
             setQuestions(questionsData);
         };
-        fetchData();
+        fetchData().then();
     }, [change]);
 
     const handleDeleteUser = async (userId: number) => {
@@ -148,6 +125,7 @@ export default function Admin() {
                             <li>
                                 <li>Email: {user.email}</li>
                                 <li>Password: {user.password}</li>
+                                <li>Biography: {user.biography}</li>
                                 <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
                             </li>
                         </ul>

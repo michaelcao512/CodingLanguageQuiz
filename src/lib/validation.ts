@@ -19,6 +19,7 @@ export async function validateData(formState: SignupFormState) {
     const email = formState.formData.email;
     const password = formState.formData.password;
 
+
     const result = schema.safeParse({
         name: name,
         email: email,
@@ -49,13 +50,14 @@ export async function validateFormAction(prevState: SignupFormState, formData: F
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-
+    const biography = formData.get('biography') as string;
     let formState = {
         ...prevState,
         formData: {
             name: name ,
             email: email,
             password: password,
+            biography: biography
         },
     };
 

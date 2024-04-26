@@ -9,6 +9,7 @@ export default function QuizLanding(){
                     <StyledH1> Welcome to the Quiz </StyledH1>
 
                     <StyledLink href="/">To Home</StyledLink>
+                    <StyledLink href="/quiz">To Quiz</StyledLink>
                 </StyledContainer>
             </LandingDiv>
         </>

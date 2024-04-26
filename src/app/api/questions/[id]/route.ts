@@ -39,7 +39,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
             }
         }
     });
-    return NextResponse.json({message: "question updated", question});
+    return NextResponse.json({message: "databaseTypes updated", question});
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
@@ -49,5 +49,5 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
         return NextResponse.json({ message: "id not found" });
     }
     const question: Question = await prisma.question.delete({ where: { id: id} });
-    return NextResponse.json({ message: "question deleted", question });
+    return NextResponse.json({ message: "databaseTypes deleted", question });
 }

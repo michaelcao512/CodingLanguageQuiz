@@ -1,7 +1,6 @@
 import prisma from "@/lib/prisma";
 
 // USERS
-
 // gets all users
 export async function getAllUsers() {
     const users = await fetch("api/users/all")
@@ -19,14 +18,15 @@ export async function deleteAllUsers() {
 }
 
 // creates a user given a name, email, and password
-export async function createUser(name: string, email: string, password: string) {
+export async function createUser(name: string, email: string, password: string, biography: string) {
     return await fetch("api/users/register",
         {
             method: "POST",
             body: JSON.stringify({
                 name: name,
                 email: email,
-                password: password
+                password: password,
+                biography: biography
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -68,7 +68,7 @@ export async function getAllQuestions(): Promise<question[]> {
     return await questions.json();
 }
 
-// creates a question given a question string and an array of choices
+// creates a databaseTypes given a databaseTypes string and an array of choices
 export async function createQuestion(question: string, choices: { text: string, personalityTypeId: number }[]) {
     return await fetch("api/questions",
         {
@@ -83,7 +83,7 @@ export async function createQuestion(question: string, choices: { text: string, 
         })
 }
 
-// deletes a question by id
+// deletes a databaseTypes by id
 export async function deleteQuestion(id: number) {
     return await fetch(`api/questions/${id}`,
         {
@@ -91,7 +91,7 @@ export async function deleteQuestion(id: number) {
         })
 }
 
-// get a question by id
+// get a databaseTypes by id
 export async function getQuestion(id: number) {
     const question = await fetch(`api/questions/${id}`)
     return await question.json();
@@ -184,4 +184,27 @@ export async function updatePersonalityType(id: number, name: string, descriptio
 
     // return updatedPersonality;
 
+}
+
+// USERCHOICES
+
+export async function getUserChoices(userId: number){
+    const userChoices = await fetch(`api/users/${userId}/choices`)
+    return await userChoices.json();
+}
+
+export async function createUserChoices(userId: number, choiceIds: number[]){
+    const userChoices = await fetch(`api/users/${userId}/choices`,
+        {
+            method: "POST",
+            body: JSON.stringify(
+                {
+                    choiceIds: choiceIds
+                }
+            ),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    return await userChoices.json();
 }

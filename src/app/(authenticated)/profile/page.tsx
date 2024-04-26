@@ -10,7 +10,7 @@ export default async function Profile() {
             <>
                 <h1>Profile</h1>
                 <p> UNAUTHORIZED </p>
-                <Link href="/">To Home</Link>
+                <Link href="/public">To Home</Link>
             </>
         )
 
