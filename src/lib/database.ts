@@ -74,6 +74,22 @@ export async function getUser(id: number): Promise<User> {
     return await user.json();
 }
 
+export async function updateUser(id: number, name?: string, email?: string, password?: string, biography?: string, personalityTypeId?: number) {
+    return await fetch(`api/users/${id}`,
+        {
+            method: "PUT",
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password,
+                biography: biography,
+                personalityTypeId: personalityTypeId
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+}
 
 // QUESTIONS
 /*

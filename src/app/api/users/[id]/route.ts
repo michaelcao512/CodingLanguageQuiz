@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
 
-// get user by id
 export async function GET({ params }: { params: { id: string } }) {
     const id = params.id;
     const user: User | null = await prisma.user.findUnique({ where: { id: parseInt(id) } });
@@ -15,15 +14,32 @@ export async function GET({ params }: { params: { id: string } }) {
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     const id = params.id;
     const body  = await request.json();
-    const { name, email, password } = body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const { name, email, password, biography, personalityTypeId} = body;
+    let hashedPassword = password;
+    if (password) {
+        hashedPassword = await bcrypt.hash(password, 10);
+    }
+    const oldUser = await prisma.user.findUnique({  where: { id: parseInt(id) } });
+    if (!oldUser) {
+        return NextResponse.json({ message: "user not found" });
+    }
+    const newHashedPassword = hashedPassword || oldUser.password;
+    const newName = name || oldUser.name;
+    const newEmail = email || oldUser.email;
+    const newBiography = biography || oldUser.biography;
+    const newPersonalityTypeId = personalityTypeId || oldUser.personalityTypeId;
+
+    const newDetails = {
+        name: newName,
+        email: newEmail,
+        password: newHashedPassword,
+        biography: newBiography,
+        personalityTypeId: newPersonalityTypeId
+    }
+
     const user: User = await prisma.user.update({
         where: { id: parseInt(id) },
-        data: {
-            name: name,
-            email: email,
-            password: hashedPassword
-        }
+        data: newDetails
     });
     return NextResponse.json(user);
 }
