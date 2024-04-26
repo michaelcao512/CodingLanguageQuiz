@@ -9,9 +9,9 @@ export async function GET() {
 }
 
 
-// delete all users
+// delete all users; returns number of users deleted {count: number}
 export async function DELETE() {
-    const users = await prisma.user.deleteMany({});
-    return NextResponse.json({ message: "all users deleted", users });
+    const batchPayload = await prisma.user.deleteMany({});
+    return NextResponse.json(batchPayload);
 }
 

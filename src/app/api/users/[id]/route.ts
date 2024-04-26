@@ -25,7 +25,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
             password: hashedPassword
         }
     });
-    return NextResponse.json({message: "user updated", user});
+    return NextResponse.json(user);
 }
 
 // delete user by id
@@ -38,5 +38,5 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     }
     console.log("ID: " , id);
     const user: User = await prisma.user.delete({ where: { id: id} });
-    return NextResponse.json({ message: "user deleted", user });
+    return NextResponse.json(user);
 }
