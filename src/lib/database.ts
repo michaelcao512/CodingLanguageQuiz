@@ -183,6 +183,8 @@ export async function deleteAllPersonalityTypes() {
 export async function getPersonalityType(id: number) {
     const personalityType = await fetch(`api/personalityType/${id}`)
     return await personalityType.json();
+}
+
 /**
  * Creates a personality type in the database.
  * @param name - The name of the personality type.
