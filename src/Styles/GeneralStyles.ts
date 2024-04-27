@@ -53,20 +53,51 @@ export const LoginDiv = styled.div`
 export const StyledButton = styled.button`
   padding: 10px 45px;
   border-radius: 31px;
-  //border-width: thin;
   background: linear-gradient(to right, #5B4EF0, #67B6FF);
   color: white;
   font-family: 'Satoshi', sans-serif;
   font-weight: normal;
-  //box-shadow: black;pm
   display: flex;
   margin: auto;
   font-size: 15pt;
   border: none;
   margin-left: 5px;
   margin-right: 5px;
-  border: none;
-`
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(to right, #67B6FF, #5B4EF0);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.18);
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  &:active:after {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+  }
+`;
 
 export const InputDiv = styled.div`
   display: flex;
