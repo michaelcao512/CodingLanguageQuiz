@@ -6,10 +6,7 @@ import Starfield from "@/component/backgrounds/Starfield";
 import React from "react";
 
 export default async function Login(){
-    const session = await getServerSession();
-    if (session) {
-        redirect('/profile');
-    }
+
     return (
         <>
             <LandingDiv>

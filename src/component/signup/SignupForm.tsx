@@ -7,7 +7,7 @@ import {useFormState} from "react-dom";
 import {validateFormAction} from "@/lib/validation"
 import {StyledButton, StyledInput, ErrorMessage, InputDiv, StyledLabel, StyledLink} from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
-import {createUserChoices} from "@/lib/database";
+import {createUserChoices, setQuizResults} from "@/lib/database";
 import {User} from "@prisma/client";
 
 
@@ -42,8 +42,8 @@ function RegisterForm() {
     const [userRegistered, setUserRegistered] = useState(false);
     useEffect(() => {
         if (userRegistered) {
-            // creates associated UserChoices objects for user
-            createUserChoices(context.userId, context.userChoices).then(r => console.log(r));
+            // creates associated UserChoices objects for user and get personality type
+            setQuizResults(context.userId, context.userChoices).then();
             redirect('/login');
         }
     }, [userRegistered]);

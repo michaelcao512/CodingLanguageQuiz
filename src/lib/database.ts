@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import {User} from "@prisma/client";
+import {User, UserChoice} from "@prisma/client";
 
 // USERS
 /**
@@ -74,21 +74,43 @@ export async function getUser(id: number): Promise<User> {
     return await user.json();
 }
 
+
+type userBody = {
+    name?: string,
+    email?: string,
+    password?: string,
+    biography?: string,
+    personalityTypeId?: number
+
+}
+
 export async function updateUser(id: number, name?: string, email?: string, password?: string, biography?: string, personalityTypeId?: number) {
+    let body = {} as userBody;
+    if (name !== undefined) body.name = name;
+    if (email !== undefined) body.email = email;
+    if (password !== undefined) body.password = password;
+    if (biography !== undefined) body.biography = biography;
+    if (personalityTypeId !== undefined) body.personalityTypeId = personalityTypeId;
+
+    console.log("body", body);
     return await fetch(`api/users/${id}`,
         {
             method: "PUT",
-            body: JSON.stringify({
-                name: name,
-                email: email,
-                password: password,
-                biography: biography,
-                personalityTypeId: personalityTypeId
-            }),
+            body: JSON.stringify(body),
             headers: {
                 "Content-Type": "application/json"
             }
         })
+}
+
+/**
+ * Gets a user in the database by their email
+ * @param email - The email of the user.
+ */
+export async function getUserIdByEmail(email: string) {
+    const res = await fetch(`api/users/email/${email}`);
+    const user = await res.json();
+    return user.id;
 }
 
 // QUESTIONS
@@ -194,11 +216,17 @@ export async function deleteAllPersonalityTypes() {
 
 /**
  * Gets a personality type from the database by id.
- * @param id - The id of the personality type.
+ * @param personalityTypeId - The id of the personality type.
  */
-export async function getPersonalityType(id: number) {
-    const personalityType = await fetch(`api/personalityType/${id}`)
+export async function getPersonalityType(personalityTypeId: number) {
+    const personalityType = await fetch(`api/personalityType/${personalityTypeId}`)
     return await personalityType.json();
+}
+
+export async function getPersonalityTypeByChoiceId(choiceId: number) {
+    const personalityType = await fetch(`api/personalityType/choice/${choiceId}`)
+    const body = await personalityType.json()
+    return body.personalityType;
 }
 
 /**
@@ -316,4 +344,60 @@ export async function deleteUserChoices(userId: number) {
         {
             method: "DELETE"
         })
+}
+
+/**
+ * Gets all of user's choices and count the highest personality ID
+ * @param userId
+ */
+export async function setUserPersonality(userId: number) {
+    const userChoices: UserChoice[] = await getUserChoices(userId);
+    const personalityCount: Record<number, number> = {};
+
+
+    for (const choice of userChoices) {
+        // get personality id from choice id
+
+
+        let personalityTypeId = await getPersonalityTypeByChoiceId(choice.choiceId).then((personalityType) => {
+            return personalityType.id;
+        });
+
+        const personalityId = await getPersonalityType(personalityTypeId).then((personality) => {
+            return personality.id;
+        });
+        if (personalityCount[personalityTypeId]) {
+            personalityCount[personalityTypeId] += 1;
+        } else {
+            personalityCount[personalityTypeId] = 1;
+        }
+    }
+
+    // todo: tie breakers
+    let maxPersonalityId = 0;
+    let maxCount = 0;
+    for (const [personalityId, count] of Object.entries(personalityCount)) {
+        if (count > maxCount) {
+            maxPersonalityId = parseInt(personalityId);
+            maxCount = count;
+        }
+    }
+
+
+
+    console.log("updating user personality", userId, maxPersonalityId)
+    await updateUser(userId, undefined, undefined, undefined, undefined, maxPersonalityId)
+    return maxPersonalityId;
+}
+
+
+/**
+ * Set the quiz results for a user
+ * @param userId
+ * @param choices
+ */
+export async function setQuizResults(userId: number, choices: number[]) {
+    await deleteUserChoices(userId);
+    await createUserChoices(userId, choices);
+    await setUserPersonality(userId);
 }

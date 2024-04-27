@@ -5,12 +5,12 @@ import {NextRequest, NextResponse} from "next/server";
 
 // get list of choices picked for a user
 export async function GET(req: NextRequest, {params}: { params: { id: string } }){
-    const user = await prisma.userChoice.findUnique({
+    const UserChoices = await prisma.userChoice.findMany({
         where: {
-            id: parseInt(params.id)
+            userId: parseInt(params.id)
         }
     });
-    return NextResponse.json(user);
+    return NextResponse.json(UserChoices);
 }
 
 // given a userId: number and an array of choiceId: number[], create all UserChoice
