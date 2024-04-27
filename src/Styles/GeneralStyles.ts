@@ -11,9 +11,6 @@ export const GlobalStyle = createGlobalStyle`
     }
 `;
 
-
-
-
 export const StyledInput = styled.input`
   padding: 5px;
   //margin-left: 10px;
@@ -70,9 +67,13 @@ export const StyledButton = styled.button`
   overflow: hidden;
   transition: all 0.3s ease;
 
-  &:hover {
-    background: linear-gradient(to right, #67B6FF, #5B4EF0);
-  }
+    &:enabled:hover {
+        background: linear-gradient(to right, #67B6FF, #5B4EF0);
+    }
+
+    &:disabled {
+        background: #c4c4c4;
+    }
 
   &:active {
     transform: scale(0.95);
