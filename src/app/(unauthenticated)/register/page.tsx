@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import RegisterForm from "@/component/signup/SignupForm";
 import {LandingDiv, StyledH1, StyledContainer, StyledLink, StyledP} from "@/Styles/GeneralStyles";
 import React from "react";
+import Starfield from "@/component/backgrounds/Starfield";
 
 export default async function RegisterPage() {
     const session = await getServerSession();
@@ -16,13 +17,19 @@ export default async function RegisterPage() {
         <>
             <LandingDiv>
                 <StyledContainer>
-                    <StyledP>To view your results, please sign up or login</StyledP>
                     <StyledH1>Register</StyledH1>
+                    <StyledP>To view your results, please sign up or login</StyledP>
                     <RegisterForm/>
                     <StyledLink href="/login">Already have an account? Log in </StyledLink>
 
                 </StyledContainer>
             </LandingDiv>
+            <Starfield
+                starCount={10000}
+                starColor={[255, 255, 255]}
+                speedFactor={0.03}
+                backgroundColor="black"
+            />
         </>
 
 
