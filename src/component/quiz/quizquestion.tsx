@@ -2,7 +2,14 @@
 import {useContext, useEffect, useState} from "react";
 import {getAllQuestions} from "@/lib/database";
 import {QuizFlowContext} from "@/lib/context";
-import { useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
+import {StyledButton} from "@/Styles/GeneralStyles";
+import styled from "styled-components";
+
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
 
 export default function QuizQuestion() {
 
@@ -22,11 +29,12 @@ export default function QuizQuestion() {
     const [submitButton, setSubmitButton] = useState<boolean>(false);
 
     // initializing all questions
-    useEffect( function()  {
+    useEffect(function () {
         async function fetchQuestions() {
             const response: allQuestionsResponse = await getAllQuestions();
             setAllQuestions(response);
         }
+
         fetchQuestions().then()
     }, []);
 
@@ -71,8 +79,7 @@ export default function QuizQuestion() {
 
 
     const handleSubmitClick = () => {
-        console.log("User Choices:", userChoices);
-        router.push("/quiz/submit")
+        router.push("/register")
     }
 
     return (
@@ -96,11 +103,19 @@ export default function QuizQuestion() {
                                     <label htmlFor={`choice-${choice.id}`}>{choice.text}</label>
                                 </div>
                             ))}
-                            <button type="button" onClick={handleBackClick} disabled={currentQuestionNumber === 0}>Back</button>
-                            {submitButton ?
-                                <button type="button" onClick={handleSubmitClick} disabled={selectedChoice === undefined}>Submit</button> :
-                                <button type="button" onClick={handleNextClick} disabled={selectedChoice === undefined}>Next</button>
-                            }
+
+
+                            <ButtonContainer>
+                                <StyledButton type="button" onClick={handleBackClick}
+                                              disabled={currentQuestionNumber === 0}>Back</StyledButton>
+                                {submitButton ?
+                                    <StyledButton type="button" onClick={handleSubmitClick}
+                                                  disabled={selectedChoice === undefined}>Submit</StyledButton> :
+                                    <StyledButton type="button" onClick={handleNextClick}
+                                                  disabled={selectedChoice === undefined}>Next</StyledButton>
+                                }
+                            </ButtonContainer>
+
                         </form>
                     </div>
                 )}

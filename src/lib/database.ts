@@ -306,3 +306,14 @@ export async function createUserChoices(userId: number, choiceIds: number[]) {
         })
     return await userChoices.json();
 }
+
+/**
+ * Deletes user choices from the database.
+ * @param userId - The id of the user.
+ */
+export async function deleteUserChoices(userId: number) {
+    return await fetch(`api/users/${userId}/choices`,
+        {
+            method: "DELETE"
+        })
+}

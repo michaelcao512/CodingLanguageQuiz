@@ -17,3 +17,11 @@ export function ToRegisterButton(){
         <StyledButton onClick={()=>router.push("/register") }> Register </StyledButton>
     )
 }
+
+
+export function ToButton(params: {destination: string, text: string}){
+    const router = useRouter();
+    return (
+        <StyledButton onClick={()=>router.push(params.destination)}>{params.text}</StyledButton>
+    )
+}

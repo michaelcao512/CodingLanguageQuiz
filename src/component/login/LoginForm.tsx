@@ -1,14 +1,19 @@
 "use client"
-import React, { useEffect, useState } from "react";
-import { signIn } from "next-auth/react";
+import React, {useContext, useEffect, useState} from "react";
+import {getSession, signIn} from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {InputDiv, StyledButton, StyledInput, StyledLabel} from "@/Styles/GeneralStyles";
+import {QuizFlowContext} from "@/lib/context";
+import {deleteUserChoices} from "@/lib/database";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
+
+
+    const { userChoices } = useContext(QuizFlowContext);
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -25,6 +30,12 @@ export default function LoginForm() {
         } else {
             // if user is authorized
             setErrorMessage("")
+
+            const session = await getSession();
+            // const userId = session?.user
+
+            // const userId = signIndata.user.id;
+
             router.push("/profile");
             //     redirect to a home page
         }
