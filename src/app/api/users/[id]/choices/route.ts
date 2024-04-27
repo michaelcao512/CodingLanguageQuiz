@@ -24,3 +24,13 @@ export async function POST(req: NextRequest,{params}: { params: { id: string } }
     });
     return NextResponse.json(userChoices);
 }
+
+//given a userId: number, delete all UserChoice
+export async function DELETE(req: NextRequest,{params}: { params: { id: string } }){
+    const userChoices = await prisma.userChoice.deleteMany({
+        where: {
+            userId: parseInt(params.id)
+        }
+    });
+    return NextResponse.json(userChoices);
+}
