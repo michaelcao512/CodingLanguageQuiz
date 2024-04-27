@@ -6,33 +6,32 @@ import {LandingDiv, StyledH1, StyledContainer, StyledLink, StyledP} from "@/Styl
 import React, {useContext} from "react";
 import {getUserIdByEmail, setQuizResults} from "@/lib/database";
 import {QuizFlowContext} from "@/lib/context";
+import Starfield from "@/component/backgrounds/Starfield";
 
 export default async function RegisterPage() {
     const session = await getServerSession();
-    // if the user is already logged in, redirect to the log in page
-    const { userChoices }= useContext(QuizFlowContext)
+    // if the user is already logged in, redirect to the home page
     if (session) {
-        if (userChoices.length > 0) {
-            const email = session.user?.email;
-            if (email) {
-                const userId = await getUserIdByEmail(email);
-                await setQuizResults(userId, userChoices)
-            }
-        }
-        redirect('/login');
+        redirect('/profile');
     }
 
     return (
         <>
             <LandingDiv>
                 <StyledContainer>
-                    <StyledP>To view your results, please sign up or login</StyledP>
                     <StyledH1>Register</StyledH1>
+                    <StyledP>To view your results, please sign up or login</StyledP>
                     <RegisterForm/>
                     <StyledLink href="/login">Already have an account? Log in </StyledLink>
 
                 </StyledContainer>
             </LandingDiv>
+            <Starfield
+                starCount={10000}
+                starColor={[255, 255, 255]}
+                speedFactor={0.03}
+                backgroundColor="black"
+            />
         </>
 
 
