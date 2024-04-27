@@ -39,6 +39,7 @@ export const StyledH1 = styled.h1`
   font-weight: 900;
   padding-right: 10px;
   padding-left: 10px;
+  color: white;
 
 `
 
@@ -112,6 +113,7 @@ export const StyledLabel = styled.label`
   font-family: 'Satoshi', sans-serif;
   display: flex;
   margin: auto;
+  color: white;
 `
 
 export const LandingDiv = styled.div`
@@ -125,11 +127,13 @@ export const LandingDiv = styled.div`
 export const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin: auto;
   justify-content: center;
   align-items: center;
   padding: 20px 30px 50px;
-  background: linear-gradient(0deg, #fafafa, #ffffff);
-  border: 3px solid #ffffff;
+  //background: linear-gradient(0deg, rgb(137, 135, 161), rgb(111, 122, 169));
+  background: rgba(255, 255, 255, 0.11);
+  //border: 3px solid rgba(255, 255, 255, 0.16);
   border-radius: 20px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.14);
 `
@@ -148,18 +152,18 @@ export const ErrorMessage = styled.span`
 export const StyledP=styled.p`
   padding-top: 10px;
   font-family: 'Satoshi', sans-serif;
-  color: #4e3280;
+  color: #ffffff;
   font-weight: lighter;
 `;
 
 export const StyledLink = styled(Link)`
-    padding: 1rem 0;
-    font-family: 'Satoshi', sans-serif;
-    color: #4e3280;
-    font-weight: lighter;
-    text-decoration: none;
+  padding: 1rem 0;
+  font-family: 'Satoshi', sans-serif;
+  color: #86d0fd;
+  font-weight: lighter;
+  text-decoration: none;
 
-    &:hover {
-        text-decoration: underline;
-      }
+  &:hover {
+    text-decoration: underline;
+  }
 `;
