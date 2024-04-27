@@ -6,6 +6,7 @@ import {createPersonalityType, getAllPersonalityTypes} from "@/lib/database";
 
 import {User, PersonalityType, Question, Choice} from "@prisma/client";
 import bcrypt from "bcryptjs";
+import {useSession} from "next-auth/react";
 
 
 //     ADMIN PAGE (not meant for viewing)
@@ -119,13 +120,13 @@ export default function Admin() {
                     <>
                         <li key={user.id}>
                             <li>{user.id}: {user.name}</li>
-
                         </li>
                         <ul>
                             <li>
                                 <li>Email: {user.email}</li>
                                 <li>Password: {user.password}</li>
                                 <li>Biography: {user.biography}</li>
+                                <li>Personality Type ID: {user.personalityTypeId}</li>
                                 <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
                             </li>
                         </ul>
@@ -151,12 +152,12 @@ export default function Admin() {
                     [...Array(numChoices)].map((_, i) => (
                     <div key={i}>
                         <label>
-                            Choice {i + 1} Text:
-                            <input type="text" name={`choiceText${i + 1}`}/>
+                            Choice {i} Text:
+                            <input type="text" name={`choiceText${i}`}/>
                         </label>
                         <label>
-                            Personality Type ID for Choice {i + 1}:
-                            <input type="number" name={`personalityTypeId${i + 1}`} min="1"/>
+                            Personality Type ID for Choice {i}:
+                            <input type="number" name={`personalityTypeId${i}`} min="1"/>
                         </label>
                     </div>
                 ))}

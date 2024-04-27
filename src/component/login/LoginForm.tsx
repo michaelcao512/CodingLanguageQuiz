@@ -4,7 +4,7 @@ import {getSession, signIn} from "next-auth/react";
 import { useRouter } from "next/navigation";
 import {InputDiv, StyledButton, StyledInput, StyledLabel} from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
-import {deleteUserChoices} from "@/lib/database";
+import {deleteUserChoices, getUserIdByEmail, setQuizResults} from "@/lib/database";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");
@@ -12,8 +12,8 @@ export default function LoginForm() {
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
 
-
     const { userChoices } = useContext(QuizFlowContext);
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -30,12 +30,12 @@ export default function LoginForm() {
         } else {
             // if user is authorized
             setErrorMessage("")
+            const userId = await getUserIdByEmail(email);
 
-            const session = await getSession();
-            // const userId = session?.user
 
-            // const userId = signIndata.user.id;
-
+            if (userChoices.length > 0) {
+                await setQuizResults(userId, userChoices)
+            }
             router.push("/profile");
             //     redirect to a home page
         }

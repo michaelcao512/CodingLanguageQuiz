@@ -14,6 +14,7 @@ export async function GET({ params }: { params: { id: string } }) {
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     const id = params.id;
     const body  = await request.json();
+    console.log(body)
     const { name, email, password, biography, personalityTypeId} = body;
     let hashedPassword = password;
     if (password) {
@@ -23,6 +24,14 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     if (!oldUser) {
         return NextResponse.json({ message: "user not found" });
     }
+
+    console.log("BODY", body);
+    console.log("name", name);
+    console.log("email", email);
+    console.log("password, hashedPassword", password, hashedPassword);
+    console.log("biography", biography);
+    console.log("personalityTypeId", personalityTypeId);
+
     const newHashedPassword = hashedPassword || oldUser.password;
     const newName = name || oldUser.name;
     const newEmail = email || oldUser.email;
@@ -37,22 +46,21 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         personalityTypeId: newPersonalityTypeId
     }
 
+    console.log("new details:", newDetails);
     const user: User = await prisma.user.update({
         where: { id: parseInt(id) },
         data: newDetails
     });
+    console.log("user:", user);
     return NextResponse.json(user);
 }
 
 // delete user by id
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
-    console.log("API DELETING USER");
-    console.log(params);
     const id = parseInt(params.id);
     if (!id) {
         return NextResponse.json({ message: "id not found" });
     }
-    console.log("ID: " , id);
     const user: User = await prisma.user.delete({ where: { id: id} });
     return NextResponse.json(user);
 }

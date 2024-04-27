@@ -1,4 +1,4 @@
-import {NextAuthOptions} from "next-auth"
+import {NextAuthOptions, Session} from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import {PrismaAdapter} from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
@@ -14,13 +14,11 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials){
                 if (!credentials?.email || !credentials?.password) {
-                    // if email or password is not provided
                     return null
                 }
 
                 const inputEmail = credentials.email
                 const inputPassword = bcrypt.hashSync(credentials.password, 10)
-                console.log(inputPassword)
 
                 const user = await prisma.user.findFirst({
                     where: {
@@ -29,37 +27,33 @@ export const authOptions: NextAuthOptions = {
                 })
 
                 if (!user) {
-                    // if user is not found
                     return null
                 }
 
                 if (!user.password) {
-                    // if user does not have a password
                     return null
                 }
 
                 const passwordMatch = bcrypt.compareSync(credentials.password, user.password)
 
                 if (!passwordMatch) {
-                    // if password does not match
                     return null
                 }
 
-                // user is authorized
                 return {
-                    id: user.id,
+                    id: user.id.toString(),
                     name: user.name,
                     email: user.email,
                 } as any
             }
         }),
-        //     other providers can be added here
     ],
     session: {
         strategy: "jwt",
-        maxAge: 24 * 60 * 60, // 1 day
+        maxAge: 24 * 60 * 60,
     },
     pages: {
         signIn: '/',
     },
+
 }

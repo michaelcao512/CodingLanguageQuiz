@@ -3,13 +3,23 @@ import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 import RegisterForm from "@/component/signup/SignupForm";
 import {LandingDiv, StyledH1, StyledContainer, StyledLink, StyledP} from "@/Styles/GeneralStyles";
-import React from "react";
+import React, {useContext} from "react";
+import {getUserIdByEmail, setQuizResults} from "@/lib/database";
+import {QuizFlowContext} from "@/lib/context";
 
 export default async function RegisterPage() {
     const session = await getServerSession();
-    // if the user is already logged in, redirect to the home page
+    // if the user is already logged in, redirect to the log in page
+    const { userChoices }= useContext(QuizFlowContext)
     if (session) {
-        redirect('/profile');
+        if (userChoices.length > 0) {
+            const email = session.user?.email;
+            if (email) {
+                const userId = await getUserIdByEmail(email);
+                await setQuizResults(userId, userChoices)
+            }
+        }
+        redirect('/login');
     }
 
     return (
