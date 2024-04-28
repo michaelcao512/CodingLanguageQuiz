@@ -1,6 +1,9 @@
+"use client"
 import {getServerSession} from "next-auth";
 import LogOutButton from "@/component/LogOutButton";
 import Link from "next/link";
+import NavBar from "@/component/navbar/NavigationBar";
+
 
 export default async function Profile() {
     const session = await getServerSession();
@@ -19,6 +22,13 @@ export default async function Profile() {
 
         return (
             <div>
+                <NavBar
+                    title="Profile"
+                    firstLink="/searchprofile"
+                    searchName='Search'
+                    secondLink="/"
+                    secName="Log out"
+                />
                 <h1>Profile</h1>
                 <p>Welcome {name}</p>
                 <LogOutButton/>
@@ -26,4 +36,3 @@ export default async function Profile() {
         )
     }
 }
-
