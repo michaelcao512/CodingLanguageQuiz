@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "@/lib/registry";
 import {GlobalStyle} from "@/Styles/GeneralStyles";
+import Starfield from "@/component/backgrounds/Starfield";
+import React from "react";
 
 
 export const metadata: Metadata = {
@@ -21,6 +23,12 @@ export default function RootLayout({
       <StyledComponentsRegistry>
           {children}
       </StyledComponentsRegistry>
+      <Starfield
+          starCount={10000}
+          starColor={[255, 255, 255]}
+          speedFactor={0.03}
+          backgroundColor="black"
+      />
       </body>
     </html>
   );

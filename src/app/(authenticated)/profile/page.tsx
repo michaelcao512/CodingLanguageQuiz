@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth";
-import LogOutButton from "@/component/LogOutButton";
+import LogOutButton from "@/component/navbar/LogOutButton";
 import Link from "next/link";
 
 export default async function Profile() {
@@ -10,7 +10,7 @@ export default async function Profile() {
             <>
                 <h1>Profile</h1>
                 <p> UNAUTHORIZED </p>
-                <Link href="/public">To Home</Link>
+                <Link href="/">To Home</Link>
             </>
         )
 
