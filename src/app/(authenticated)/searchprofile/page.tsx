@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { getAllUsers } from "@/lib/database";
-import { User as UserType } from "@prisma/client";
-import NavBar from "@/component/navbar/NavigationBar";
+import {PersonalityType, User as UserType} from "@prisma/client";
 import styled from 'styled-components';
 
 const UserCard = styled.div`
@@ -15,6 +14,7 @@ const UserCard = styled.div`
 
 const UserInfo = styled.p`
   margin: 4px 0;
+    color: white;
 `;
 function SearchProfile() {
     const [users, setUsers] = useState<(UserType & { personalityType: PersonalityType })[]>([]);
@@ -38,7 +38,6 @@ function SearchProfile() {
 
     return (
         <div>
-            <NavBar title="Search Profile" firstLink="/profile" searchName="Profile" secondLink="/" secName="Home" />
             {loading ? (
                 <p>Loading...</p>
             ) : (
