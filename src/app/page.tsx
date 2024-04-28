@@ -19,7 +19,7 @@ export default function Home() {
                     <StyledH1> Personality Quiz! </StyledH1>
                     <StyledButtonContainer>
                         <ToButton
-                            destination={"/login"}
+                            destination={"/register"}
                             text={"Sign In"}
                         />
                         <ToButton
