@@ -54,8 +54,8 @@ model UserChoice {
   id       Int    @id @default(autoincrement())
   userId   Int
   choiceId Int
-  choice   Choice @relation(fields: [choiceId], references: [id])
-  user     User   @relation(fields: [userId], references: [id])
+  choice   Choice @relation(fields: [choiceId], references: [id], onDelete: Cascade)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([choiceId], map: "UserChoice_choiceId_fkey")
   @@index([userId], map: "UserChoice_userId_fkey")

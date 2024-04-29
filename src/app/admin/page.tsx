@@ -1,12 +1,18 @@
 "use client"
-import React, {useState, useEffect} from "react";
-import {getAllUsers, deleteUser, deleteQuestion, deletePersonalityType, deleteChoice} from "@/lib/database";
-import {createQuestion, getAllQuestions} from "@/lib/database";
-import {createPersonalityType, getAllPersonalityTypes} from "@/lib/database";
+import React, {useEffect, useState} from "react";
+import {
+    createPersonalityType,
+    createQuestion,
+    deleteChoice,
+    deletePersonalityType,
+    deleteQuestion,
+    deleteUser,
+    getAllPersonalityTypes,
+    getAllQuestions,
+    getAllUsers
+} from "@/lib/database";
 
-import {User, PersonalityType, Question, Choice} from "@prisma/client";
-import bcrypt from "bcryptjs";
-import {useSession} from "next-auth/react";
+import {PersonalityType, User} from "@prisma/client";
 
 
 //     ADMIN PAGE (not meant for viewing)
@@ -63,7 +69,7 @@ export default function Admin() {
 
         let choices: choice[] = [];
 
-        for (let i = 1; i <= numChoices; i++) {
+        for (let i = 0; i <= numChoices; i++) {
             const choiceText = data.get(`choiceText${i}`) as string;
             const personalityTypeId = parseInt(data.get(`personalityTypeId${i}`) as string);
 
