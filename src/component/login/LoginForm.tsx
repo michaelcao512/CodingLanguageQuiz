@@ -6,8 +6,10 @@ import {
     InputDiv,
     StyledButton,
     StyledButtonContainer,
+    StyledH1,
     StyledInput,
-    StyledLabel
+    StyledLabel,
+    StyledLink
 } from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
 import {getUserIdByEmail, setQuizResults} from "@/lib/database";
@@ -56,18 +58,25 @@ export default function LoginForm() {
     }, [errorMessage]);
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <InputDiv>
-                    <StyledLabel>Email</StyledLabel>
-                    <StyledInput type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    <StyledLabel>Password</StyledLabel>
-                    <StyledInput type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </InputDiv>
-                <StyledButtonContainer><StyledButton type="submit">Login</StyledButton></StyledButtonContainer>
-                {loading && <p>Loading...</p>}
-                <ErrorMessage>{errorMessage}</ErrorMessage>
-            </form>
-        </div>
+        <>
+            {loading ? (<StyledH1>Loading...</StyledH1>) :
+                (<>
+                        <form onSubmit={handleSubmit}>
+                            <InputDiv>
+                                <StyledLabel>Email</StyledLabel>
+                                <StyledInput type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                <StyledLabel>Password</StyledLabel>
+                                <StyledInput type="password" value={password}
+                                             onChange={(e) => setPassword(e.target.value)}/>
+                            </InputDiv>
+                            <ErrorMessage>{errorMessage}</ErrorMessage>
+                            <StyledButtonContainer><StyledButton
+                                type="submit">Login</StyledButton>
+                            </StyledButtonContainer>
+                        </form>
+                        <StyledLink href={"/"}>To Home</StyledLink>
+                    </>
+                )}
+        </>
     )
 }

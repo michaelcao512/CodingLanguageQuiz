@@ -11,6 +11,7 @@ import {
     StyledH1,
     StyledInput,
     StyledLabel,
+    StyledLink,
     StyledP
 } from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
@@ -123,9 +124,8 @@ function RegisterForm() {
                 (
                     <>
                         <StyledP>To view your results, please sign up</StyledP>
-                        <ErrorMessage>{error}</ErrorMessage>
                         <form action={formAction} onSubmit={handleSubmit} autoComplete={'new-password'}>
-                            <div>
+                            <>
                                 <InputDiv>
                                     <StyledLabel>Name</StyledLabel>
                                     {interactedFields.name && <ErrorMessage>{formState.nameError}</ErrorMessage>}
@@ -144,15 +144,17 @@ function RegisterForm() {
                                 </InputDiv>
                                 <InputDiv>
                                     <StyledLabel>Biography</StyledLabel>
-                                    <StyledInput type="text" name="biography" onChange={handleChange}/>
+                                        <StyledInput type="text" name="biography" onChange={handleChange}/>
                                 </InputDiv>
+                                <ErrorMessage>{error}</ErrorMessage>
                                 <StyledButtonContainer>
                                     <StyledButton type="submit"
                                                   disabled={formState.buttonDisabled}>Register</StyledButton>
                                 </StyledButtonContainer>
-
-                            </div>
+                            </>
                         </form>
+                        <StyledLink href={"/"}>Exit</StyledLink>
+
                     </>
                 )
             }

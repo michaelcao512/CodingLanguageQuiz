@@ -143,9 +143,10 @@ export const StyledInput = styled.input`
   margin: auto;
   margin-bottom: 20px;
 `;
-export const ErrorMessage = styled.span`
+export const ErrorMessage = styled.p`
   color: #942c2c;
   text-transform: uppercase;
+    margin: 0;
 `;
 
 // HOME PAGE
