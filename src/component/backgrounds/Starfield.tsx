@@ -9,6 +9,7 @@ interface Props {
     starCount?: number;
 }
 
+//sourced from https://medium.com/designly/how-to-create-an-animated-space-stars-background-effect-in-react-next-js-2806b630379c
 export default function Starfield(props: Props) {
     const { speedFactor = 0.05, backgroundColor = 'black', starColor = [255, 255, 255], starCount = 5000 } = props;
 

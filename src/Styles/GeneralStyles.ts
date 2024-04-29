@@ -67,13 +67,9 @@ export const StyledButton = styled.button`
   overflow: hidden;
   transition: all 0.3s ease;
 
-    &:enabled:hover {
-        background: linear-gradient(to right, #67B6FF, #5B4EF0);
-    }
-
-    &:disabled {
-        background: #c4c4c4;
-    }
+  &:hover {
+    background: linear-gradient(to right, #67B6FF, #5B4EF0);
+  }
 
   &:active {
     transform: scale(0.95);

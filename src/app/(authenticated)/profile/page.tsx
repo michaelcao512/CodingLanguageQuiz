@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth";
-import LogOutButton from "@/component/LogOutButton";
+import LogOutButton from "@/component/buttons/LogOutButton";
 import Link from "next/link";
 
 export default async function Profile() {
