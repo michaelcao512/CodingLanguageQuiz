@@ -1,6 +1,7 @@
 "use client"
-import styled, {createGlobalStyle} from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.cdnfonts.com/css/satoshi');
@@ -28,7 +29,7 @@ export const StyledLabel = styled.label`
   margin: auto;
   color: white;
 `;
-export const StyledP=styled.p`
+export const StyledP = styled.p`
   padding-top: 10px;
   font-family: 'Satoshi', sans-serif;
   color: #ffffff;
@@ -55,6 +56,7 @@ export const StyledButton = styled.button`
 
     &:enabled:hover {
         background: linear-gradient(to right, #67B6FF, #5B4EF0);
+        scale: 1.05;
     }
 
     &:disabled {
@@ -145,7 +147,7 @@ export const ErrorMessage = styled.span`
 `;
 
 // HOME PAGE
-export const StyledButtonContainer=styled.div`
+export const StyledButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
