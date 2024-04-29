@@ -1,10 +1,10 @@
 "use client"
 import React, {useContext, useEffect, useState} from "react";
-import {getSession, signIn} from "next-auth/react";
-import { useRouter } from "next/navigation";
+import {useRouter} from "next/navigation";
 import {InputDiv, StyledButton, StyledInput, StyledLabel} from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
-import {deleteUserChoices, getUserIdByEmail, setQuizResults} from "@/lib/database";
+import {getUserIdByEmail, setQuizResults} from "@/lib/database";
+import {signIn} from "next-auth/react";
 
 export default function LoginForm() {
     const [email, setEmail] = useState("");

@@ -1,10 +1,11 @@
 "use client"
-import {useContext, useEffect, useState} from "react";
-import {getAllQuestions} from "@/lib/database";
+import React, {useContext, useEffect, useState} from "react";
+import {getAllQuestions, getUserIdByEmail, setQuizResults} from "@/lib/database";
 import {QuizFlowContext} from "@/lib/context";
 import {useRouter} from "next/navigation";
 import {StyledButton} from "@/Styles/GeneralStyles";
 import styled from "styled-components";
+import {getSession} from "next-auth/react";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -78,8 +79,18 @@ export default function QuizQuestion() {
     }
 
 
-    const handleSubmitClick = () => {
-        router.push("/register")
+    const handleSubmitClick = async () => {
+        const session = await getSession();
+        if (!session) {
+            router.push("/register");
+        } else {
+            // if users are already logged in then redirect to the profile page and rewrite their choices in db
+            const email = session?.user?.email;
+            const userId = email ? await getUserIdByEmail(email) : null;
+            await setQuizResults(userId, userChoices);
+
+            router.push("/profile")
+        }
     }
 
     return (

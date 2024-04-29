@@ -1,14 +1,12 @@
 "use client"
 import React, {useContext, useEffect, useState} from "react"
 
-import {redirect} from "next/navigation";
-
 import {useFormState} from "react-dom";
 import {validateFormAction} from "@/lib/validation"
-import {StyledButton, StyledInput, ErrorMessage, InputDiv, StyledLabel, StyledLink} from "@/Styles/GeneralStyles";
+import {ErrorMessage, InputDiv, StyledButton, StyledInput, StyledLabel} from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
-import {createUserChoices, setQuizResults} from "@/lib/database";
-import {User} from "@prisma/client";
+import {setQuizResults} from "@/lib/database";
+import {signIn} from "next-auth/react";
 
 
 const initialState: SignupFormState = {
@@ -44,9 +42,15 @@ function RegisterForm() {
         if (userRegistered) {
             // creates associated UserChoices objects for user and get personality type
             setQuizResults(context.userId, context.userChoices).then();
-            redirect('/login');
+            // next auth sign in
+            signIn('credentials', {
+                email: formState.formData.email,
+                password: formState.formData.password,
+                callbackUrl: '/profile'
+
+            }).then();
         }
-    }, [userRegistered]);
+     }, [userRegistered]);
 
     // input handling for form validation
     async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -72,8 +76,6 @@ function RegisterForm() {
             setError("Email already exists");
             return;
         }
-
-
 
         const response = await fetch('api/users/register', {
             method: 'POST',

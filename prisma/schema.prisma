@@ -13,12 +13,14 @@ model User {
   name              String?
   email             String?          @unique
   password          String?
-  biography         String?
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
-  PersonalityType   PersonalityType? @relation(fields: [personalityTypeId], references: [id])
   personalityTypeId Int?
+  biography         String?
+  PersonalityType   PersonalityType? @relation(fields: [personalityTypeId], references: [id])
   userChoices       UserChoice[]
+
+  @@index([personalityTypeId], map: "User_personalityTypeId_fkey")
 }
 
 model Question {
@@ -30,25 +32,31 @@ model Question {
 model Choice {
   id                Int             @id @default(autoincrement())
   text              String
-  question          Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId        Int
-  personalityType   PersonalityType @relation(fields: [personalityTypeId], references: [id], onDelete: Cascade)
   personalityTypeId Int
+  personalityType   PersonalityType @relation(fields: [personalityTypeId], references: [id], onDelete: Cascade)
+  question          Question        @relation(fields: [questionId], references: [id], onDelete: Cascade)
   userChoices       UserChoice[]
+
+  @@index([personalityTypeId], map: "Choice_personalityTypeId_fkey")
+  @@index([questionId], map: "Choice_questionId_fkey")
 }
 
 model PersonalityType {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  User        User[]
   Choice      Choice[]
+  User        User[]
 }
 
 model UserChoice {
   id       Int    @id @default(autoincrement())
-  user     User   @relation(fields: [userId], references: [id])
   userId   Int
-  choice   Choice @relation(fields: [choiceId], references: [id])
   choiceId Int
+  choice   Choice @relation(fields: [choiceId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
+
+  @@index([choiceId], map: "UserChoice_choiceId_fkey")
+  @@index([userId], map: "UserChoice_userId_fkey")
 }

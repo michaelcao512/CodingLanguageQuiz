@@ -1,8 +1,14 @@
 import LoginForm from "@/component/login/LoginForm";
-import { StyledH1, LandingDiv, StyledLink, StyledContainer} from "@/Styles/GeneralStyles";
+import {LandingDiv, StyledContainer, StyledH1, StyledLink} from "@/Styles/GeneralStyles";
 import React from "react";
+import {getServerSession} from "next-auth";
+import {redirect} from "next/navigation";
 
 export default async function Login(){
+    const session = await getServerSession();
+    if (session) {
+        redirect('/profile');
+    }
 
     return (
         <>

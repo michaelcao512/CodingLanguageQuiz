@@ -1,7 +1,5 @@
 import QuizQuestion from "@/component/quiz/quizquestion";
-import Starfield from "@/component/backgrounds/Starfield";
-import {LandingDiv, StyledContainer, StyledH1, StyledLink} from "@/Styles/GeneralStyles";
-import LoginForm from "@/component/login/LoginForm";
+import {LandingDiv, StyledContainer, StyledH1} from "@/Styles/GeneralStyles";
 import React from "react";
 
 
@@ -14,12 +12,6 @@ export default function Quiz(){
                     <QuizQuestion/>
                 </StyledContainer>
             </LandingDiv>
-            <Starfield
-                starCount={10000}
-                starColor={[255, 255, 255]}
-                speedFactor={0.03}
-                backgroundColor="black"
-            />
         </>
     );
 }

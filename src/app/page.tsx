@@ -1,16 +1,15 @@
-"use client"
-import styled from "styled-components";
-import {LandingDiv, StyledH1, StyledContainer} from "@/Styles/GeneralStyles";
-import {ToButton} from "@/component/buttons/buttons";
 import React from "react";
+import {LandingDiv, StyledButtonContainer, StyledContainer, StyledH1} from "@/Styles/GeneralStyles";
+import {ToButton} from "@/component/buttons/buttons";
+import {getServerSession} from "next-auth";
+import {redirect} from "next/navigation";
 
-const StyledButtonContainer=styled.div`
-  display: flex;
-  flex-direction: row;
-`
+export default async function Home() {
+    const session = await getServerSession();
+    if (session) {
+        redirect("/profile");
+    }
 
-
-export default function Home() {
     return (
         <>
             <LandingDiv>
