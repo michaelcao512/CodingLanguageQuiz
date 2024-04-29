@@ -11,6 +11,7 @@ const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     margin: 10px;
+    justify-content: center;
 `;
 
 export default function QuizQuestion() {

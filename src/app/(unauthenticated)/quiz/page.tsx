@@ -10,6 +10,7 @@ export default function Quiz(){
                 <StyledContainer>
                     <StyledH1> Quiz </StyledH1>
                     <QuizQuestion/>
+                    {/*<p>Go back to home</p>*/}
                 </StyledContainer>
             </LandingDiv>
         </>
