@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import {StyledButton} from "@/Styles/GeneralStyles";
 import styled from "styled-components";
 import {getSession} from "next-auth/react";
+import ChoiceCard from "@/component/quiz/QuestionCard";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -80,7 +81,6 @@ export default function QuizQuestion() {
         setUserChoices(newChoices);
     }
 
-
     const handleSubmitClick = async () => {
         const session = await getSession();
         if (!session) {
@@ -104,7 +104,7 @@ export default function QuizQuestion() {
                         <h3>{currentQuestion.text}</h3>
                         <form>
                             {currentQuestion.choices.map((choice) => (
-                                <div key={choice.id}>
+                                <ChoiceCard key={choice.id}>
                                     <input
                                         type="radio"
                                         id={`choice-${choice.id}`}
@@ -112,9 +112,10 @@ export default function QuizQuestion() {
                                         value={choice.id}
                                         onChange={handleChoiceChange}
                                         checked={selectedChoice === choice.id}
+                                        style={{ display: 'none' }}
                                     />
                                     <label htmlFor={`choice-${choice.id}`}>{choice.text}</label>
-                                </div>
+                                </ChoiceCard>
                             ))}
 
 
