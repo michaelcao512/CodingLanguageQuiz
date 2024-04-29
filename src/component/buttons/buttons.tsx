@@ -58,14 +58,14 @@ const StyledButton = styled(motion.button)`
 export function ToLoginButton(){
     const router = useRouter();
     return (
-        <StyledButton whileTap={{scale: 0.75}} onClick={()=> router.push("/login") }> Login </StyledButton>
+        <StyledButton whileHover={{ scale: 1.05 }} whileTap={{scale: 0.75}} onClick={()=> router.push("/login") }> Login </StyledButton>
     )
 }
 
 export function ToRegisterButton(){
     const router = useRouter();
     return (
-        <StyledButton whileTap={{scale: 0.75}} onClick={()=>router.push("/register") }> Register </StyledButton>
+        <StyledButton whileHover={{ scale: 1.05 }} whileTap={{scale: 0.75}} onClick={()=>router.push("/register") }> Register </StyledButton>
     )
 }
 
