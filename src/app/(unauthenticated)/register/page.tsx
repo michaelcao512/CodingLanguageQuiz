@@ -1,7 +1,7 @@
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 import RegisterForm from "@/component/signup/SignupForm";
-import {LandingDiv, StyledContainer, StyledH1} from "@/Styles/GeneralStyles";
+import {LandingDiv, StyledContainer, StyledH1, StyledLink} from "@/Styles/GeneralStyles";
 import React from "react";
 
 export default async function RegisterPage() {
@@ -17,6 +17,7 @@ export default async function RegisterPage() {
                 <StyledContainer>
                     <StyledH1>Register</StyledH1>
                     <RegisterForm/>
+                    <StyledLink href={"/"}>Exit</StyledLink>
                 </StyledContainer>
             </LandingDiv>
         </>

@@ -8,11 +8,19 @@ import styled from "styled-components";
 import {getSession} from "next-auth/react";
 import {ChoiceCard, SelectedChoiceCard} from "@/component/quiz/QuestionCard";
 
+
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
-    margin: 10px;
+    margin: 5px 5px;
     justify-content: center;
+`;
+
+
+const StyleDiv = styled.div `
+    display: flex; 
+    justify-content: center;
+    margin-top: 2px;
 `;
 
 export default function QuizQuestion() {
@@ -154,7 +162,9 @@ export default function QuizQuestion() {
                                                       disabled={selectedChoice === undefined}>Next</StyledButton>
                                     }
                                 </ButtonContainer>
-                                <StyledLink href={"/"}>Exit</StyledLink>
+                                <StyleDiv>
+                                    <StyledLink href={"/"}>Exit</StyledLink>
+                                </StyleDiv>
                             </form>
                         </div>
                     )

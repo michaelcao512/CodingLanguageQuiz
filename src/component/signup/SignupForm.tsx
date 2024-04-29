@@ -122,7 +122,7 @@ function RegisterForm() {
             {loading ? (<StyledH1>Loading...</StyledH1>) :
                 (
                     <>
-                        <StyledP>To view your results, please sign up or login</StyledP>
+                        <StyledP>To view your results, please sign up</StyledP>
                         <ErrorMessage>{error}</ErrorMessage>
                         <form action={formAction} onSubmit={handleSubmit} autoComplete={'new-password'}>
                             <div>
