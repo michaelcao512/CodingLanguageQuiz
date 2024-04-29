@@ -6,8 +6,6 @@ import {useRouter} from "next/navigation";
 import {StyledH1} from "@/Styles/GeneralStyles";
 
 export default function Profile() {
-    const [redirect, setRedirect] = useState("");
-
     const router = useRouter();
     useEffect(() => {
         async function fetchProfile() {
@@ -22,7 +20,7 @@ export default function Profile() {
             router.push(`/profile/${userId}`);
         }
         fetchProfile().then();
-    }, []);
+    }, [router]);
 
     return (
         <>
