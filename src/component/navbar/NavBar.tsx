@@ -20,6 +20,7 @@ const NavLink = styled.a`
     padding: 20px;
 `;
 
+
 export default function NavBar( ) {
     return (
         <NavBarWrapper>
