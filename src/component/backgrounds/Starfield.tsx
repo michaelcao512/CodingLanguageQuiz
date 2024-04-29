@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 
+//sourced from https://medium.com/designly/how-to-create-an-animated-space-stars-background-effect-in-react-next-js-2806b630379c
 interface Props {
     speedFactor?: number;
     backgroundColor?: string;
