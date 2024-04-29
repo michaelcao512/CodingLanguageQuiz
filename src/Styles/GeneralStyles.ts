@@ -152,4 +152,6 @@ export const ErrorMessage = styled.span`
 export const StyledButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
+    align-self: center;
+    justify-content: center;
 `;

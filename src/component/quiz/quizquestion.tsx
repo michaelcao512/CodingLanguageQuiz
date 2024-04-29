@@ -32,11 +32,15 @@ export default function QuizQuestion() {
     // boolean for whether the submit button should be displayed
     const [submitButton, setSubmitButton] = useState<boolean>(false);
 
+    const [loading, setLoading] = useState<boolean>(false);
     // initializing all questions
     useEffect(function () {
+        setLoading(true);
+
         async function fetchQuestions() {
             const response: allQuestionsResponse = await getAllQuestions();
             setAllQuestions(response);
+            setLoading(false);
         }
 
         fetchQuestions().then()
@@ -87,10 +91,11 @@ export default function QuizQuestion() {
             router.push("/register");
         } else {
             // if users are already logged in then redirect to the profile page and rewrite their choices in db
+            setLoading(true);
             const email = session?.user?.email;
             const userId = email ? await getUserIdByEmail(email) : null;
             await setQuizResults(userId, userChoices);
-
+            setLoading(false);
             router.push("/profile")
         }
     }
@@ -98,27 +103,29 @@ export default function QuizQuestion() {
     return (
         <>
             <div>
+                {loading && <h2>Loading...</h2>}
                 {currentQuestion && (
                     <div>
                         <h2>Question {currentQuestionNumber + 1}</h2>
+                        {loading && <h2>Loading...</h2>}
                         <h3>{currentQuestion.text}</h3>
                         <form>
                             {currentQuestion.choices.map((choice) => (
-                                <ChoiceCard key={choice.id}>
-                                    <input
-                                        type="radio"
-                                        id={`choice-${choice.id}`}
-                                        name="choice"
-                                        value={choice.id}
-                                        onChange={handleChoiceChange}
-                                        checked={selectedChoice === choice.id}
-                                        style={{ display: 'none' }}
-                                    />
-                                    <label htmlFor={`choice-${choice.id}`}>{choice.text}</label>
-                                </ChoiceCard>
-                            ))}
-
-
+                                <>                                  <input
+                                    type="radio"
+                                    id={`choice-${choice.id}`}
+                                    name="choice"
+                                    value={choice.id}
+                                    onChange={handleChoiceChange}
+                                    checked={selectedChoice === choice.id}
+                                    style={{display: 'none'}}
+                                />
+                                    <label htmlFor={`choice-${choice.id}`}>
+                                        <ChoiceCard key={choice.id}>
+                                            {choice.text}
+                                        </ChoiceCard>
+                                    </label>
+                                </>))}
                             <ButtonContainer>
                                 <StyledButton type="button" onClick={handleBackClick}
                                               disabled={currentQuestionNumber === 0}>Back</StyledButton>

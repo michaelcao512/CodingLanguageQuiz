@@ -1,7 +1,14 @@
 "use client"
 import React, {useContext, useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import {InputDiv, StyledButton, StyledInput, StyledLabel} from "@/Styles/GeneralStyles";
+import {
+    ErrorMessage,
+    InputDiv,
+    StyledButton,
+    StyledButtonContainer,
+    StyledInput,
+    StyledLabel
+} from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
 import {getUserIdByEmail, setQuizResults} from "@/lib/database";
 import {signIn} from "next-auth/react";
@@ -11,12 +18,13 @@ export default function LoginForm() {
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-    const { userChoices } = useContext(QuizFlowContext);
+    const {userChoices} = useContext(QuizFlowContext);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-
+        setLoading(true);
         const signInData = await signIn('credentials', {
             email: email,
             password: password,
@@ -42,6 +50,9 @@ export default function LoginForm() {
     }
 
     useEffect(() => {
+        if (errorMessage) {
+            setLoading(false);
+        }
     }, [errorMessage]);
 
     return (
@@ -49,12 +60,13 @@ export default function LoginForm() {
             <form onSubmit={handleSubmit}>
                 <InputDiv>
                     <StyledLabel>Email</StyledLabel>
-                    <StyledInput type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <StyledInput type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     <StyledLabel>Password</StyledLabel>
-                    <StyledInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <StyledInput type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </InputDiv>
-                <StyledButton type="submit">Login</StyledButton>
-                <p>{errorMessage}</p>
+                <StyledButtonContainer><StyledButton type="submit">Login</StyledButton></StyledButtonContainer>
+                {loading && <p>Loading...</p>}
+                <ErrorMessage>{errorMessage}</ErrorMessage>
             </form>
         </div>
     )
