@@ -4,10 +4,16 @@ import {ToButton} from "@/component/buttons/buttons";
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
+import { getUserIdByEmail } from "@/lib/database";
+
 export default async function Home() {
     const session = await getServerSession();
+
     if (session) {
-        redirect("/profile");
+        const email = session?.user?.email;
+        const userId = getUserIdByEmail(email || "no email"); 
+
+        redirect(`/profile/${userId}`);
     }
 
     return (
