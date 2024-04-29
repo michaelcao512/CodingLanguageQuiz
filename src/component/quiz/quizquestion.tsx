@@ -90,12 +90,12 @@ export default function QuizQuestion() {
     }
 
     const handleSubmitClick = async () => {
+        setLoading(true);
         const session = await getSession();
         if (!session) {
             router.push("/register");
         } else {
             // if users are already logged in then redirect to the profile page and rewrite their choices in db
-            setLoading(true);
             try {
                 const email = session?.user?.email;
                 const userId = email ? await getUserIdByEmail(email) : null;
