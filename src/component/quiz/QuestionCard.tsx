@@ -12,8 +12,12 @@ const ChoiceCard = styled.div`
         background-color: white;
         color: black;
     }
+`;
 
+const SelectedChoiceCard = styled(ChoiceCard)`
+    background-color: white;
+    color: black;
 `;
 
 
-export default ChoiceCard;
+export {ChoiceCard, SelectedChoiceCard};

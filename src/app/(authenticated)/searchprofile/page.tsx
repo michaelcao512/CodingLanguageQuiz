@@ -1,18 +1,19 @@
-"use client";
+"use client"
 import React, {useEffect, useState} from "react";
 import {getAllUsers, getPersonalityType} from "@/lib/database";
 import styled from 'styled-components';
+import {StyledH1} from "@/Styles/GeneralStyles";
 
 const UserCard = styled.div`
-  border: 3px solid #ddd;
-  padding: 16px;
-  margin: 10px 150px;
-  border-radius: 15px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 3px solid #ddd;
+    padding: 16px;
+    margin: 10px 150px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const UserInfo = styled.p`
-  margin: 4px 0;
+    margin: 4px 0;
     color: white;
 `;
 
@@ -24,30 +25,31 @@ function SearchProfile() {
         async function fetchUsers() {
             try {
                 const users = await getAllUsers();
-                const userData = await Promise.all(users.map(async (user) => {
+                const data = await Promise.all(users.map(async (user) => {
                     const personalityType = await getPersonalityType(user.personalityTypeId || -1);
-                    const personalityTypeName = personalityType.name;
+                    const personalityTypeName = personalityType ? personalityType.name : "";
                     return {
                         id: user.id,
                         name: user.name || "",
                         email: user.email || "",
                         biography: user.biography || "",
-                        personalityType: personalityTypeName || ""
+                        personalityType: personalityTypeName
                     };
                 }));
-                setUserData(userData);
-                setLoading(false);
+                setUserData(data);
             } catch (error) {
+                console.error("Error fetching users", error);
+            } finally {
                 setLoading(false);
             }
         }
-        fetchUsers().then();
+        fetchUsers();
     }, []);
 
     return (
         <div>
             {loading ? (
-                <p>Loading...</p>
+                <StyledH1>Loading...</StyledH1>
             ) : (
                 <ul>
                     {userData.map(user => (
@@ -56,7 +58,6 @@ function SearchProfile() {
                             <UserInfo>Email: {user.email}</UserInfo>
                             <UserInfo>Biography: {user.biography}</UserInfo>
                             <UserInfo>Personality Type: {user.personalityType}</UserInfo>
-
                         </UserCard>
                     ))}
                 </ul>

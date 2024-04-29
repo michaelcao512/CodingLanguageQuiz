@@ -6,7 +6,7 @@ import {useRouter} from "next/navigation";
 import {StyledButton} from "@/Styles/GeneralStyles";
 import styled from "styled-components";
 import {getSession} from "next-auth/react";
-import ChoiceCard from "@/component/quiz/QuestionCard";
+import {ChoiceCard, SelectedChoiceCard} from "@/component/quiz/QuestionCard";
 
 const ButtonContainer = styled.div`
     display: flex;
@@ -64,6 +64,10 @@ export default function QuizQuestion() {
         setSelectedChoice(userChoices[currentQuestionNumber]);
     }, [currentQuestionNumber, userChoices]);
 
+    // re renders loading
+    useEffect(() => {
+    }, [loading]);
+
     const handleNextClick = () => {
         if (selectedChoice !== undefined) {
             setCurrentQuestionNumber(prevNumber => prevNumber + 1);
@@ -92,56 +96,69 @@ export default function QuizQuestion() {
         } else {
             // if users are already logged in then redirect to the profile page and rewrite their choices in db
             setLoading(true);
-            const email = session?.user?.email;
-            const userId = email ? await getUserIdByEmail(email) : null;
-            await setQuizResults(userId, userChoices);
-            setLoading(false);
-            router.push("/profile")
+            try {
+                const email = session?.user?.email;
+                const userId = email ? await getUserIdByEmail(email) : null;
+                await setQuizResults(userId, userChoices);
+                router.push("/profile");
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         }
     }
 
     return (
         <>
             <div>
-                {loading && <h2>Loading...</h2>}
-                {currentQuestion && (
-                    <div>
-                        <h2>Question {currentQuestionNumber + 1}</h2>
-                        {loading && <h2>Loading...</h2>}
-                        <h3>{currentQuestion.text}</h3>
-                        <form>
-                            {currentQuestion.choices.map((choice) => (
-                                <>                                  <input
-                                    type="radio"
-                                    id={`choice-${choice.id}`}
-                                    name="choice"
-                                    value={choice.id}
-                                    onChange={handleChoiceChange}
-                                    checked={selectedChoice === choice.id}
-                                    style={{display: 'none'}}
-                                />
-                                    <label htmlFor={`choice-${choice.id}`}>
-                                        <ChoiceCard key={choice.id}>
-                                            {choice.text}
-                                        </ChoiceCard>
-                                    </label>
-                                </>))}
-                            <ButtonContainer>
-                                <StyledButton type="button" onClick={handleBackClick}
-                                              disabled={currentQuestionNumber === 0}>Back</StyledButton>
-                                {submitButton ?
-                                    <StyledButton type="button" onClick={handleSubmitClick}
-                                                  disabled={selectedChoice === undefined}>Submit</StyledButton> :
-                                    <StyledButton type="button" onClick={handleNextClick}
-                                                  disabled={selectedChoice === undefined}>Next</StyledButton>
-                                }
-                            </ButtonContainer>
-
-                        </form>
-                    </div>
+                {loading ? (
+                    <h2>Loading...</h2>
+                ) : (
+                    currentQuestion && (
+                        <div>
+                            <h2>Question {currentQuestionNumber + 1}</h2>
+                            <h3>{currentQuestion.text}</h3>
+                            <form>
+                                {currentQuestion.choices.map((choice) => (
+                                    <>
+                                        <input
+                                            type="radio"
+                                            id={`choice-${choice.id}`}
+                                            name="choice"
+                                            value={choice.id}
+                                            onChange={handleChoiceChange}
+                                            checked={selectedChoice === choice.id}
+                                            style={{display: 'none'}}
+                                        />
+                                        <label htmlFor={`choice-${choice.id}`}>
+                                            {selectedChoice === choice.id ? (
+                                                <SelectedChoiceCard key={choice.id}>
+                                                    {choice.text}
+                                                </SelectedChoiceCard>
+                                            ) : (
+                                                <ChoiceCard key={choice.id}>
+                                                    {choice.text}
+                                                </ChoiceCard>
+                                            )}
+                                        </label>
+                                    </>
+                                ))}
+                                <ButtonContainer>
+                                    <StyledButton type="button" onClick={handleBackClick}
+                                                  disabled={currentQuestionNumber === 0}>Back</StyledButton>
+                                    {submitButton ?
+                                        <StyledButton type="button" onClick={handleSubmitClick}
+                                                      disabled={selectedChoice === undefined}>Submit</StyledButton> :
+                                        <StyledButton type="button" onClick={handleNextClick}
+                                                      disabled={selectedChoice === undefined}>Next</StyledButton>
+                                    }
+                                </ButtonContainer>
+                            </form>
+                        </div>
+                    )
                 )}
-
             </div>
         </>
-    )
+    );
 }
