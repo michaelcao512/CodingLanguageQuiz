@@ -39,16 +39,18 @@ function RegisterForm() {
     // after user registered redirect to login page
     const [userRegistered, setUserRegistered] = useState(false);
     useEffect(() => {
+
         if (userRegistered) {
             // creates associated UserChoices objects for user and get personality type
-            setQuizResults(context.userId, context.userChoices).then();
-            // next auth sign in
-            signIn('credentials', {
-                email: formState.formData.email,
-                password: formState.formData.password,
-                callbackUrl: '/profile'
-
-            }).then();
+            const updateQuizResults = async () => {
+                await setQuizResults(context.userId, context.userChoices);
+                await signIn('credentials', {
+                    email: formState.formData.email,
+                    password: formState.formData.password,
+                    callbackUrl: '/profile'
+                });
+            };
+            updateQuizResults().then();
         }
      }, [userRegistered]);
 
@@ -87,6 +89,7 @@ function RegisterForm() {
         const data = await response.json();
         if (response.status === 200) {
             context.setUserId(data.user.id);
+
             setUserRegistered(true);
         } else {
             setError("Unable to register user");

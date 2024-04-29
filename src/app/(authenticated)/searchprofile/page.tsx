@@ -36,6 +36,8 @@ function SearchProfile() {
     }, []);
 
 
+    
+
     return (
         // TODO: persoanlitytypeid to be replaced with actual personality type
         <div>

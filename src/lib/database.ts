@@ -363,9 +363,6 @@ export async function setUserPersonality(userId: number) {
             return personalityType.id;
         });
 
-        const personalityId = await getPersonalityType(personalityTypeId).then((personality) => {
-            return personality.id;
-        });
         if (personalityCount[personalityTypeId]) {
             personalityCount[personalityTypeId] += 1;
         } else {
@@ -383,9 +380,6 @@ export async function setUserPersonality(userId: number) {
         }
     }
 
-
-
-    console.log("updating user personality", userId, maxPersonalityId)
     await updateUser(userId, undefined, undefined, undefined, undefined, maxPersonalityId)
     return maxPersonalityId;
 }

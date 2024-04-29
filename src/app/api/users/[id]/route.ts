@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
-import { User } from "@prisma/client";
-import { NextRequest, NextResponse } from "next/server";
+import {User} from "@prisma/client";
+import {NextRequest, NextResponse} from "next/server";
 import bcrypt from "bcryptjs";
 
 
@@ -25,13 +25,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         return NextResponse.json({ message: "user not found" });
     }
 
-    console.log("BODY", body);
-    console.log("name", name);
-    console.log("email", email);
-    console.log("password, hashedPassword", password, hashedPassword);
-    console.log("biography", biography);
-    console.log("personalityTypeId", personalityTypeId);
-
     const newHashedPassword = hashedPassword || oldUser.password;
     const newName = name || oldUser.name;
     const newEmail = email || oldUser.email;
@@ -46,7 +39,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         personalityTypeId: newPersonalityTypeId
     }
 
-    console.log("new details:", newDetails);
     const user: User = await prisma.user.update({
         where: { id: parseInt(id) },
         data: newDetails
