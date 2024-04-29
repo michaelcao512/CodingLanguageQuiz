@@ -1,7 +1,6 @@
 "use client";
 import React, {useEffect, useState} from "react";
-import {getAllUsers} from "@/lib/database";
-import {User} from "@prisma/client";
+import {getAllUsers, getPersonalityType} from "@/lib/database";
 import styled from 'styled-components';
 
 const UserCard = styled.div`
@@ -18,39 +17,45 @@ const UserInfo = styled.p`
 `;
 
 function SearchProfile() {
-    const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
+    const [userData, setUserData] = useState<UserData[]>([]);
 
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const usersData = await getAllUsers();
-                setUsers(usersData);
+                const users = await getAllUsers();
+                const userData = await Promise.all(users.map(async (user) => {
+                    const personalityType = await getPersonalityType(user.personalityTypeId || -1);
+                    const personalityTypeName = personalityType.name;
+                    return {
+                        id: user.id,
+                        name: user.name || "",
+                        email: user.email || "",
+                        biography: user.biography || "",
+                        personalityType: personalityTypeName || ""
+                    };
+                }));
+                setUserData(userData);
                 setLoading(false);
             } catch (error) {
-                console.error("Failed to fetch users", error);
                 setLoading(false);
             }
         }
-        fetchUsers();
+        fetchUsers().then();
     }, []);
 
-
-    
-
     return (
-        // TODO: persoanlitytypeid to be replaced with actual personality type
         <div>
             {loading ? (
                 <p>Loading...</p>
             ) : (
                 <ul>
-                    {users.map(user => (
+                    {userData.map(user => (
                         <UserCard key={user.id}>
                             <UserInfo>Name: {user.name}</UserInfo>
                             <UserInfo>Email: {user.email}</UserInfo>
                             <UserInfo>Biography: {user.biography}</UserInfo>
-                            <UserInfo>Personality Type: {user.personalityTypeId}</UserInfo>
+                            <UserInfo>Personality Type: {user.personalityType}</UserInfo>
 
                         </UserCard>
                     ))}

@@ -17,6 +17,5 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         return NextResponse.json({ message: "id not found" });
     }
     const personalityType = await prisma.personalityType.findUnique({ where: { id: id} });
-    console.log("FROM API: ", personalityType, id);
-    return NextResponse.json({ personalityType });
+    return NextResponse.json( personalityType );
 }
