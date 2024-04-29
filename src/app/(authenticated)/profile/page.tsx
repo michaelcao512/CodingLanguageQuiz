@@ -1,20 +1,34 @@
-import {getServerSession} from "next-auth";
-import Link from "next/link";
+"use client"
+import {getUserIdByEmail} from "@/lib/database";
+import {useEffect, useState} from "react";
+import {getSession} from "next-auth/react";
+import {useRouter} from "next/navigation";
+import {StyledH1} from "@/Styles/GeneralStyles";
 
-export default async function Profile() {
-    const session = await getServerSession();
+export default function Profile() {
+    const [redirect, setRedirect] = useState("");
 
-    console.log("Session: ", session);
-    if (!session) {
-        return (
-            <>
-                <h1>Profile</h1>
-                <p> UNAUTHORIZED </p>
-                <Link href="/">To Home</Link>
-            </>
-        )
-    }  else {
+    const router = useRouter();
+    useEffect(() => {
+        async function fetchProfile() {
+            const session = await getSession();
+            if (!session) {
+                return;
+            }
 
-    }
+            const email = session?.user?.email || "no email";
+            const userId = await getUserIdByEmail(email);
+
+            router.push(`/profile/${userId}`);
+        }
+        fetchProfile().then();
+    }, []);
+
+    return (
+        <>
+            <StyledH1> LOADING... </StyledH1>
+        </>
+    )
 }
+
 

@@ -10,10 +10,10 @@ export default async function Home() {
     const session = await getServerSession();
 
     if (session) {
-        const email = session?.user?.email;
-        const userId = getUserIdByEmail(email || "no email"); 
+        const email = session?.user?.email || "no email"
+        const userId = getUserIdByEmail(email);
 
-        redirect(`/profile/${userId}`);
+        redirect(`/profile`);
     }
 
     return (
