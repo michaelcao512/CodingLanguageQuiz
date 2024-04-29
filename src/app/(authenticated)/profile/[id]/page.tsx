@@ -1,9 +1,7 @@
 "use client";
 
-import { getServerSession } from "next-auth";
-import Link from "next/link";
 
-import { getUserIdByEmail, getPersonalityType, getUser } from "@/lib/database";
+import { getPersonalityType, getUser } from "@/lib/database";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -15,7 +13,7 @@ export default function UserProfile() {
     async function getUserInfo() {
       try {
         const user = await getUser(parseInt(params.id));
-
+      console.log("USER", user);
         const personalityType = await getPersonalityType(
           user.personalityTypeId || -1
         );

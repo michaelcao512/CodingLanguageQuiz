@@ -13,6 +13,8 @@ export default async function Profile() {
                 <Link href="/">To Home</Link>
             </>
         )
+    }  else {
+
     }
 }
 

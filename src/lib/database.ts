@@ -7,7 +7,7 @@ import {User, UserChoice} from "@prisma/client";
  * @returns {Promise<User[]>} An array of User objects.
  */
 export async function getAllUsers(): Promise<User[]> {
-    const users = await fetch("api/users/all")
+    const users = await fetch("/api/users/all")
 
     return await users.json();
 }
@@ -17,7 +17,7 @@ export async function getAllUsers(): Promise<User[]> {
  * @returns {Promise<User[]>} An array of User objects.
  */
 export async function deleteAllUsers() {
-    const payload = await fetch("api/users/all",
+    const payload = await fetch("/api/users/all",
         {
             method: "DELETE"
         })
@@ -58,7 +58,7 @@ export async function createUser(name: string, email: string, password: string, 
  * @returns {Promise<User>} The deleted User object.
  */
 export async function deleteUser(id: number): Promise<User> {
-    const user = await fetch(`http://localhost:3000/api/users/${id}`,
+    const user = await fetch(`/api/users/${id}`,
         {
             method: "DELETE",
         })
@@ -70,7 +70,7 @@ export async function deleteUser(id: number): Promise<User> {
  * @param id - The ID of the user.
  */
 export async function getUser(id: number): Promise<User> {
-    const user = await fetch(`api/users/${id}`)
+    const user = await fetch(`/api/users/${id}`)
     return await user.json();
 }
 
@@ -108,7 +108,7 @@ export async function updateUser(id: number, name?: string, email?: string, pass
  * @param email - The email of the user.
  */
 export async function getUserIdByEmail(email: string) {
-    const res = await fetch(`api/users/email/${email}`);
+    const res = await fetch(`/api/users/email/${email}`);
     const user = await res.json();
     return user.id;
 }
@@ -137,7 +137,7 @@ type question =
  * Gets all questions from the database.
  */
 export async function getAllQuestions(): Promise<question[]> {
-    const questions = await fetch("api/questions")
+    const questions = await fetch("/api/questions")
     return await questions.json();
 }
 
@@ -165,7 +165,7 @@ export async function createQuestion(question: string, choices: { text: string, 
  * @param id - The id of the question.
  */
 export async function deleteQuestion(id: number) {
-    return await fetch(`api/questions/${id}`,
+    return await fetch(`/api/questions/${id}`,
         {
             method: "DELETE"
         })
@@ -176,7 +176,7 @@ export async function deleteQuestion(id: number) {
  * @param id - The id of the question.
  */
 export async function getQuestion(id: number) {
-    const question = await fetch(`api/questions/${id}`)
+    const question = await fetch(`/api/questions/${id}`)
     return await question.json();
 }
 
@@ -186,7 +186,7 @@ export async function getQuestion(id: number) {
  * @param id - The id of the choice
  */
 export async function deleteChoice(id: number) {
-    return await fetch(`api/questions/choice/${id}`,
+    return await fetch(`/api/questions/choice/${id}`,
         {
             method: "DELETE"
         })
@@ -199,7 +199,7 @@ export async function deleteChoice(id: number) {
  * Gets all personality types from the database.
  */
 export async function getAllPersonalityTypes() {
-    const personalityTypes = await fetch("api/personalityType")
+    const personalityTypes = await fetch("/api/personalityType")
     return await personalityTypes.json();
 }
 
@@ -207,7 +207,7 @@ export async function getAllPersonalityTypes() {
  * Deletes all personality types from the database.
  */
 export async function deleteAllPersonalityTypes() {
-    return await fetch("api/personalityType",
+    return await fetch("/api/personalityType",
         {
             method: "DELETE"
         })
@@ -219,12 +219,12 @@ export async function deleteAllPersonalityTypes() {
  * @param personalityTypeId - The id of the personality type.
  */
 export async function getPersonalityType(personalityTypeId: number) {
-    const personalityType = await fetch(`api/personalityType/${personalityTypeId}`)
+    const personalityType = await fetch(`/api/personalityType/${personalityTypeId}`)
     return await personalityType.json();
 }
 
 export async function getPersonalityTypeByChoiceId(choiceId: number) {
-    const personalityType = await fetch(`api/personalityType/choice/${choiceId}`)
+    const personalityType = await fetch(`/api/personalityType/choice/${choiceId}`)
     const body = await personalityType.json()
     return body.personalityType;
 }
@@ -253,7 +253,7 @@ export async function createPersonalityType(name: string, description: string) {
  * @param id - The id of the personality type.
  */
 export async function deletePersonalityType(id: number) {
-    return await fetch(`api/personalityType/${id}`,
+    return await fetch(`/api/personalityType/${id}`,
         {
             method: "DELETE"
         }
@@ -310,7 +310,7 @@ export async function updatePersonalityType(id: number, name: string, descriptio
  * @param userId - The id of the user.
  */
 export async function getUserChoices(userId: number) {
-    const userChoices = await fetch(`api/users/${userId}/choices`)
+    const userChoices = await fetch(`/api/users/${userId}/choices`)
     return await userChoices.json();
 }
 
@@ -320,7 +320,7 @@ export async function getUserChoices(userId: number) {
  * @param choiceIds - An array of choice ids.
  */
 export async function createUserChoices(userId: number, choiceIds: number[]) {
-    const userChoices = await fetch(`api/users/${userId}/choices`,
+    const userChoices = await fetch(`/api/users/${userId}/choices`,
         {
             method: "POST",
             body: JSON.stringify(
@@ -340,7 +340,7 @@ export async function createUserChoices(userId: number, choiceIds: number[]) {
  * @param userId - The id of the user.
  */
 export async function deleteUserChoices(userId: number) {
-    return await fetch(`api/users/${userId}/choices`,
+    return await fetch(`/api/users/${userId}/choices`,
         {
             method: "DELETE"
         })

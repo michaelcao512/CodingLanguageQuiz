@@ -30,24 +30,20 @@ export default function LoginForm() {
         const signInData = await signIn('credentials', {
             email: email,
             password: password,
-            // callbackUrl: '/profile'
             redirect: false
-
         });
         if (signInData?.ok === false) {
             // if user is unauthorized
-            setErrorMessage("Invalid login credentials")
+            setErrorMessage("Invalid login credentials");
+            setLoading(false);
         } else {
             // if user is authorized
-            setErrorMessage("")
+            setErrorMessage("");
             const userId = await getUserIdByEmail(email);
-
-
             if (userChoices.length > 0) {
-                await setQuizResults(userId, userChoices)
+                await setQuizResults(userId, userChoices);
             }
             router.push("/profile");
-            //     redirect to a home page
         }
     }
 

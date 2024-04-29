@@ -4,9 +4,9 @@ import {NextRequest, NextResponse} from "next/server";
 import bcrypt from "bcryptjs";
 
 
-export async function GET({ params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const id = params.id;
-    const user: User | null = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+    const user  = await prisma.user.findUnique({ where: { id: parseInt(id) } });
     return NextResponse.json(user);
 }
 
