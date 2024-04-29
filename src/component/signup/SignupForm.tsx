@@ -8,8 +8,10 @@ import {
     InputDiv,
     StyledButton,
     StyledButtonContainer,
+    StyledH1,
     StyledInput,
-    StyledLabel
+    StyledLabel,
+    StyledP
 } from "@/Styles/GeneralStyles";
 import {QuizFlowContext} from "@/lib/context";
 import {setQuizResults} from "@/lib/database";
@@ -62,6 +64,9 @@ function RegisterForm() {
         }
     }, [userRegistered, loading]);
 
+    useEffect(() => {
+    }, [loading, error]);
+
     // input handling for form validation
     async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const {name} = event.target;
@@ -73,8 +78,7 @@ function RegisterForm() {
 
     // submit form
     async function handleSubmit() {
-        setLoading(true);
-        setError('');
+        setError('loading...');
         const {name, email, password, biography} = formState.formData;
         const body = JSON.stringify({name, email, password, biography});
         const emailFetch = await fetch(`api/users/register/checkAvailable/email/${email}`);
@@ -89,6 +93,7 @@ function RegisterForm() {
             setLoading(false);
             return;
         }
+        setLoading(true);
 
         try {
             const response = await fetch('api/users/register', {
@@ -113,35 +118,44 @@ function RegisterForm() {
 
     return (
         <>
-            {loading && <p>Loading...</p>}
-            <ErrorMessage>{error}</ErrorMessage>
-            <form action={formAction} onSubmit={handleSubmit} autoComplete={'new-password'}>
-                <div>
-                    <InputDiv>
-                        <StyledLabel>Name</StyledLabel>
-                        {interactedFields.name && <ErrorMessage>{formState.nameError}</ErrorMessage>}
-                        <StyledInput type="text" name="name" onChange={handleChange}/>
-                    </InputDiv>
-                    <InputDiv>
-                        <StyledLabel>Email</StyledLabel>
-                        {interactedFields.email && <ErrorMessage>  {formState.emailError}</ErrorMessage>}
-                        <StyledInput type="email" name="email" onChange={handleChange}/>
-                    </InputDiv>
-                    <InputDiv>
-                        <StyledLabel>Password</StyledLabel>
-                        {interactedFields.password && <ErrorMessage>  {formState.passwordError}</ErrorMessage>}
-                        <StyledInput type="password" name="password" onChange={handleChange}/>
-                    </InputDiv>
-                    <InputDiv>
-                        <StyledLabel>Biography</StyledLabel>
-                        <StyledInput type="text" name="biography" onChange={handleChange}/>
-                    </InputDiv>
-                    <StyledButtonContainer>
-                        <StyledButton type="submit" disabled={formState.buttonDisabled}>Register</StyledButton>
-                    </StyledButtonContainer>
 
-                </div>
-            </form>
+            {loading ? (<StyledH1>Loading...</StyledH1>) :
+                (
+                    <>
+                        <StyledP>To view your results, please sign up or login</StyledP>
+                        <ErrorMessage>{error}</ErrorMessage>
+                        <form action={formAction} onSubmit={handleSubmit} autoComplete={'new-password'}>
+                            <div>
+                                <InputDiv>
+                                    <StyledLabel>Name</StyledLabel>
+                                    {interactedFields.name && <ErrorMessage>{formState.nameError}</ErrorMessage>}
+                                    <StyledInput type="text" name="name" onChange={handleChange}/>
+                                </InputDiv>
+                                <InputDiv>
+                                    <StyledLabel>Email</StyledLabel>
+                                    {interactedFields.email && <ErrorMessage>  {formState.emailError}</ErrorMessage>}
+                                    <StyledInput type="email" name="email" onChange={handleChange}/>
+                                </InputDiv>
+                                <InputDiv>
+                                    <StyledLabel>Password</StyledLabel>
+                                    {interactedFields.password &&
+                                        <ErrorMessage>  {formState.passwordError}</ErrorMessage>}
+                                    <StyledInput type="password" name="password" onChange={handleChange}/>
+                                </InputDiv>
+                                <InputDiv>
+                                    <StyledLabel>Biography</StyledLabel>
+                                    <StyledInput type="text" name="biography" onChange={handleChange}/>
+                                </InputDiv>
+                                <StyledButtonContainer>
+                                    <StyledButton type="submit"
+                                                  disabled={formState.buttonDisabled}>Register</StyledButton>
+                                </StyledButtonContainer>
+
+                            </div>
+                        </form>
+                    </>
+                )
+            }
         </>
     );
 }
