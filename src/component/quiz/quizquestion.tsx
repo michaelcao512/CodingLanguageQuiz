@@ -10,6 +10,7 @@ import {getSession} from "next-auth/react";
 const ButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
+    margin: 10px;
 `;
 
 export default function QuizQuestion() {
