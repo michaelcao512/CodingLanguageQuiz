@@ -8,7 +8,7 @@ const NavBarWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #5B4EF0, #67B6FF);
+    background: rgba(255, 255, 255, 0.11);
     height: 80px;
 `;
 
