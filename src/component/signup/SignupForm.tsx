@@ -1,5 +1,11 @@
 "use client"
 import React, {useContext, useEffect, useState} from "react"
+import styled from 'styled-components';
+
+
+const CenteredErrorMessage = styled(ErrorMessage)`
+    text-align: center;
+`;
 
 import {useFormState} from "react-dom";
 import {validateFormAction} from "@/lib/validation"
@@ -128,18 +134,18 @@ function RegisterForm() {
                             <>
                                 <InputDiv>
                                     <StyledLabel>Name</StyledLabel>
-                                    {interactedFields.name && <ErrorMessage>{formState.nameError}</ErrorMessage>}
+                                    {interactedFields.name && <CenteredErrorMessage>{formState.nameError}</CenteredErrorMessage>}
                                     <StyledInput type="text" name="name" onChange={handleChange}/>
                                 </InputDiv>
                                 <InputDiv>
                                     <StyledLabel>Email</StyledLabel>
-                                    {interactedFields.email && <ErrorMessage>  {formState.emailError}</ErrorMessage>}
+                                    {interactedFields.email && <CenteredErrorMessage>  {formState.emailError}</CenteredErrorMessage>}
                                     <StyledInput type="email" name="email" onChange={handleChange}/>
                                 </InputDiv>
                                 <InputDiv>
                                     <StyledLabel>Password</StyledLabel>
                                     {interactedFields.password &&
-                                        <ErrorMessage>  {formState.passwordError}</ErrorMessage>}
+                                        <CenteredErrorMessage>  {formState.passwordError}</CenteredErrorMessage>}
                                     <StyledInput type="password" name="password" onChange={handleChange}/>
                                 </InputDiv>
                                 <InputDiv>
