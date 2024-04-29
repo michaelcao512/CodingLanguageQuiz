@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {getAllQuestions, getUserIdByEmail, setQuizResults} from "@/lib/database";
 import {QuizFlowContext} from "@/lib/context";
 import {useRouter} from "next/navigation";
-import {StyledButton} from "@/Styles/GeneralStyles";
+import {StyledButton, StyledLink} from "@/Styles/GeneralStyles";
 import styled from "styled-components";
 import {getSession} from "next-auth/react";
 import {ChoiceCard, SelectedChoiceCard} from "@/component/quiz/QuestionCard";
@@ -154,6 +154,7 @@ export default function QuizQuestion() {
                                                       disabled={selectedChoice === undefined}>Next</StyledButton>
                                     }
                                 </ButtonContainer>
+                                <StyledLink href={"/"}>Exit</StyledLink>
                             </form>
                         </div>
                     )
