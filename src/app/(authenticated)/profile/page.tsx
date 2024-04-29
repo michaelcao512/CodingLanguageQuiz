@@ -1,6 +1,6 @@
 "use client"
 import {getUserIdByEmail} from "@/lib/database";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import {StyledH1} from "@/Styles/GeneralStyles";
