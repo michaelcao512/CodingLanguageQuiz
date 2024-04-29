@@ -1,7 +1,6 @@
 "use client"
-import styled, { createGlobalStyle } from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.cdnfonts.com/css/satoshi');
@@ -11,6 +10,9 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         box-sizing: border-box;
         color: white;
+    }
+    input{
+        color: black;
     }
 `;
 

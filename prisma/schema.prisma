@@ -16,7 +16,7 @@ model User {
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
   personalityTypeId Int?
-  biography         String?
+  biography         String?          @db.Text
   PersonalityType   PersonalityType? @relation(fields: [personalityTypeId], references: [id])
   userChoices       UserChoice[]
 
@@ -45,7 +45,7 @@ model Choice {
 model PersonalityType {
   id          Int      @id @default(autoincrement())
   name        String
-  description String
+  description String   @db.Text
   Choice      Choice[]
   User        User[]
 }

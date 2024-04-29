@@ -7,7 +7,6 @@ import {ErrorMessage, InputDiv, StyledButton, StyledInput, StyledLabel} from "@/
 import {QuizFlowContext} from "@/lib/context";
 import {setQuizResults} from "@/lib/database";
 import {signIn} from "next-auth/react";
-import { ToButton } from "../buttons/buttons";
 
 
 const initialState: SignupFormState = {
@@ -95,7 +94,7 @@ function RegisterForm() {
     }
 
     return (
-        <form action={formAction} onSubmit={handleSubmit}>
+        <form action={formAction} onSubmit={handleSubmit} autoComplete={'new-password'}>
             <ErrorMessage>{error}</ErrorMessage>
             <div>
                 <InputDiv>
