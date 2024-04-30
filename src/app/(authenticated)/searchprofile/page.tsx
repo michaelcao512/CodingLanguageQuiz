@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {getAllUsers, getPersonalityType} from "@/lib/database";
 import styled from 'styled-components';
 import {StyledH1} from "@/Styles/GeneralStyles";
+import Link from "next/link";
 
 const UserCard = styled.div`
     border: 3px solid #ddd;
@@ -10,11 +11,23 @@ const UserCard = styled.div`
     margin: 10px 150px;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    a {
+        text-decoration: none;
+    }
+
+    &:hover {
+        background-color: white;
+        color: black;
+    }
 `;
 
 const UserInfo = styled.p`
     margin: 4px 0;
     color: white;
+    ${UserCard}:hover & {
+        color: black;
+    }
 `;
 
 function SearchProfile() {
@@ -43,6 +56,7 @@ function SearchProfile() {
                 setLoading(false);
             }
         }
+
         fetchUsers();
     }, []);
 
@@ -54,11 +68,15 @@ function SearchProfile() {
                 <ul>
                     {userData.map(user => (
                         <UserCard key={user.id}>
-                            <UserInfo>Name: {user.name}</UserInfo>
-                            <UserInfo>Email: {user.email}</UserInfo>
-                            <UserInfo>Biography: {user.biography}</UserInfo>
-                            <UserInfo>Personality Type: {user.personalityType}</UserInfo>
+                            <Link href={`/profile/${user.id}`} key={user.id}>
+
+                                <UserInfo>Name: {user.name}</UserInfo>
+                                <UserInfo>Email: {user.email}</UserInfo>
+                                <UserInfo>Biography: {user.biography}</UserInfo>
+                                <UserInfo>Personality Type: {user.personalityType}</UserInfo>
+                            </Link>
                         </UserCard>
+
                     ))}
                 </ul>
             )}
