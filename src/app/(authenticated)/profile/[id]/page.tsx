@@ -16,6 +16,7 @@ export default function UserProfile() {
 
   const [loading, setLoading] = useState(true);
 
+  // holding userInfo as state to display later
   const [userInfo, setUserInfo] = useState<{
     id: number;
     name: string;
@@ -51,6 +52,7 @@ export default function UserProfile() {
 
         };
 
+        // setting user state and stopping loading phase
         setUserInfo(data);
         setLoading(false);
 
