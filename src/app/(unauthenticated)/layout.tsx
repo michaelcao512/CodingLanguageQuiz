@@ -4,7 +4,7 @@ import {QuizFlowProvider} from "@/lib/context";
 
 export const metadata: Metadata = {
     title: "PersonalityApp | QUIZ",
-    description: "quiz",
+    description: "Taking the quiz to find out what programming language you are!",
 };
 
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {

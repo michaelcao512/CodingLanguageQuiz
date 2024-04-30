@@ -4,7 +4,7 @@ import NavBar from "@/component/navbar/NavBar";
 
 export const metadata: Metadata = {
     title: "Personality App | Profile",
-    description: "results of personality test",
+    description: "Your personality type",
 };
 
 export default function RootLayout({

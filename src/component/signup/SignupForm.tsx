@@ -3,13 +3,12 @@ import React, {useContext, useEffect, useState} from "react"
 import styled from 'styled-components';
 
 
-const CenteredErrorMessage = styled(ErrorMessage)`
-    text-align: center;
-`;
+
 
 import {useFormState} from "react-dom";
 import {validateFormAction} from "@/lib/validation"
 import {
+    CenteredErrorMessage,
     ErrorMessage,
     InputDiv,
     StyledButton,
@@ -39,13 +38,14 @@ const initialState: SignupFormState = {
 };
 
 
+// Michael's component
 function RegisterForm() {
     const context = useContext(QuizFlowContext)
 
     const [formState, formAction] = useFormState(validateFormAction, initialState);
     const [error, setError] = useState('');
 
-    // interacted fields for displaying error messages
+    // interacted fields for displaying validation error messages
     const [interactedFields, setInteractedFields] = useState({
         name: false,
         email: false,
@@ -54,7 +54,7 @@ function RegisterForm() {
 
     const [loading, setLoading] = useState(false);
 
-    // after user registered redirect to login page
+    // after user registered, update user's personality type in database and redirect to login page
     const [userRegistered, setUserRegistered] = useState(false);
     useEffect(() => {
         if (userRegistered) {
@@ -71,6 +71,7 @@ function RegisterForm() {
         }
     }, [userRegistered, loading]);
 
+    // refresh upon loading or error changes
     useEffect(() => {
     }, [loading, error]);
 
@@ -84,6 +85,9 @@ function RegisterForm() {
     }
 
     // submit form
+    //  check if email is avaliable
+    // if email is available, register user and display error message if not
+    // if user is registered, set userRegistered to true to continue flow (above in useEffect)
     async function handleSubmit() {
         setError('loading...');
         const {name, email, password, biography} = formState.formData;
@@ -125,7 +129,6 @@ function RegisterForm() {
 
     return (
         <>
-
             {loading ? (<StyledH1>Loading...</StyledH1>) :
                 (
                     <>

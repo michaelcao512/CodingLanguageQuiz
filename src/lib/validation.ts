@@ -14,6 +14,7 @@ const schema = z.object({
         .max(50, { message: "Password is too long. Must be less 50 characters" })
 });
 
+// Registration Validation (Michael's code)
 export async function validateData(formState: SignupFormState) {
     const name = formState.formData.name;
     const email = formState.formData.email;

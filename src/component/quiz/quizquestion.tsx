@@ -23,6 +23,7 @@ const StyleDiv = styled.div `
     margin-top: 2px;
 `;
 
+// Michael's component
 export default function QuizQuestion() {
 
     const router = useRouter();
@@ -41,6 +42,7 @@ export default function QuizQuestion() {
     const [submitButton, setSubmitButton] = useState<boolean>(false);
 
     const [loading, setLoading] = useState<boolean>(false);
+
     // initializing all questions
     useEffect(function () {
         setLoading(true);
@@ -76,18 +78,21 @@ export default function QuizQuestion() {
     useEffect(() => {
     }, [loading]);
 
+    // on click of next button, increment the current question number
     const handleNextClick = () => {
         if (selectedChoice !== undefined) {
             setCurrentQuestionNumber(prevNumber => prevNumber + 1);
         }
     }
 
+    // on click of back button, decrement the current question number
     const handleBackClick = () => {
         if (currentQuestionNumber > 0) {
             setCurrentQuestionNumber(prevNumber => prevNumber - 1);
         }
     }
 
+    // on change of choice, update the selected choice and user choices
     function handleChoiceChange(event: React.ChangeEvent<HTMLInputElement>) {
         if (!allQuestions) return;
         const choiceId = parseInt(event.target.value);
@@ -97,6 +102,8 @@ export default function QuizQuestion() {
         setUserChoices(newChoices);
     }
 
+    // on click of submit button, set the user's choices in the database and then redirect to register
+    // if the users are already logged in, then overwrite their choices in the database and redirect to profile
     const handleSubmitClick = async () => {
         setLoading(true);
         const session = await getSession();

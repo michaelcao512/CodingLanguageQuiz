@@ -30,6 +30,8 @@ const UserInfo = styled.p`
     }
 `;
 
+// Search Profile
+// users have the ability to see all other users and view their profile
 function SearchProfile() {
     const [loading, setLoading] = useState(true);
     const [userData, setUserData] = useState<UserData[]>([]);

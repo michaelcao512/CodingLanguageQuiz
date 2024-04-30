@@ -4,6 +4,8 @@ import React from "react";
 import {getServerSession} from "next-auth";
 import {redirect} from "next/navigation";
 
+// Login Page
+// users can sign in here
 export default async function Login(){
     const session = await getServerSession();
     if (session) {

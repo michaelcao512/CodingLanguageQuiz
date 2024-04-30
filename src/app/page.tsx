@@ -6,6 +6,10 @@ import {redirect} from "next/navigation";
 
 import { getUserIdByEmail } from "@/lib/database";
 
+
+// Landing Home Page
+// users can sign in or take the quiz
+// if they are already logged in, they will be redirected to the profile page
 export default async function Home() {
     const session = await getServerSession();
 

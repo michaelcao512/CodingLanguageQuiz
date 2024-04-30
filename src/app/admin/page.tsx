@@ -14,8 +14,9 @@ import {
 
 import {PersonalityType, User} from "@prisma/client";
 
-
-//     ADMIN PAGE (not meant for viewing)
+// Michael's page (and API routes / database.ts functions
+//     ADMIN PAGE (not meant for viewing) - only for admin use
+//  can be accessed by going to /admin
 //  allows actions on database
 //  - READ all users
 //  - READ all questions

@@ -15,6 +15,8 @@ import {QuizFlowContext} from "@/lib/context";
 import {getUserIdByEmail, setQuizResults} from "@/lib/database";
 import {signIn} from "next-auth/react";
 
+
+// Michael's component
 export default function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,6 +26,7 @@ export default function LoginForm() {
 
     const {userChoices} = useContext(QuizFlowContext);
 
+    // upon form submission, begin authorization process
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setLoading(true);
@@ -33,11 +36,12 @@ export default function LoginForm() {
             redirect: false
         });
         if (signInData?.ok === false) {
-            // if user is unauthorized
+            // if user is unauthorized, display error message
             setErrorMessage("Invalid login credentials");
             setLoading(false);
         } else {
-            // if user is authorized
+            // if user is authorized, reset error message and then update personality type based on choices
+            // to the database and then redirect them to their profile
             setErrorMessage("");
             const userId = await getUserIdByEmail(email);
             if (userChoices.length > 0) {
@@ -47,6 +51,7 @@ export default function LoginForm() {
         }
     }
 
+    // upon change of error message, rerender
     useEffect(() => {
         if (errorMessage) {
             setLoading(false);

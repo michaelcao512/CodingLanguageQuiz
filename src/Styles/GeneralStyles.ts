@@ -148,6 +148,9 @@ export const ErrorMessage = styled.p`
   text-transform: uppercase;
     margin: 0;
 `;
+export const CenteredErrorMessage = styled(ErrorMessage)`
+    text-align: center;
+`;
 
 // HOME PAGE
 export const StyledButtonContainer = styled.div`
