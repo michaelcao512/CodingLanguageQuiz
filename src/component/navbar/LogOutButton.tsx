@@ -1,5 +1,5 @@
 "use client"
-import {signOut} from "next-auth/react";
+import { signOut } from "next-auth/react";
 import style from "styled-components"
 
 //Anh's component
@@ -11,7 +11,7 @@ const Button = style.button`
     font-weight: normal;
     font-size: 14px;
     border: none;
-    padding: 5px;
+    padding: 10px 20px;
     margin-left: 20px;
     &:hover {
         background:  linear-gradient(to right, #5B4EF0, #67B6FF); 
@@ -22,7 +22,7 @@ const Button = style.button`
 export default function LogOutButton() {
     return (
         //direct user to home page when signing out
-        <Button onClick={ () => signOut({callbackUrl: "/"}) } > Log Out</Button>
+        <Button onClick={() => signOut({ callbackUrl: "/" })} > Log Out</Button>
     )
 }
 
