@@ -1,5 +1,5 @@
 "use client"
-import styled, {createGlobalStyle} from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Link from "next/link";
 
 export const GlobalStyle = createGlobalStyle`
@@ -125,6 +125,20 @@ export const StyledContainer = styled.div`
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.14);
 `;
 
+export const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px 50px;
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.14);
+  width: 50%;
+`;
+
 // REGISTER / LOGIN
 export const InputDiv = styled.div`
   display: flex;
@@ -159,3 +173,11 @@ export const StyledButtonContainer = styled.div`
     align-self: center;
     justify-content: center;
 `;
+
+export const ProfileName = styled.h1`
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 900;
+  font-size: 50pt;
+  margin-top:0;
+  margin-bottom: 0;
+  `

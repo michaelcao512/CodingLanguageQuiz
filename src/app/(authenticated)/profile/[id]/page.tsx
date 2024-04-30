@@ -4,7 +4,7 @@ import { getPersonalityType, getUser } from "@/lib/database";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { StyledContainer, StyledP, StyledH1, StyledInput } from "@/Styles/GeneralStyles";
+import { StyledContainer, StyledP, StyledH1, StyledInput, ProfileContainer, ProfileName } from "@/Styles/GeneralStyles";
 import { PersonalityType } from "@prisma/client";
 
 
@@ -62,7 +62,7 @@ export default function UserProfile() {
   }, [params.id]);
 
   return (
-    <StyledContainer>
+    <ProfileContainer>
       {loading ? (<StyledH1>LOADING...</StyledH1>) : (
         <>
           <StyledH1>{userInfo?.name}</StyledH1>
@@ -70,13 +70,13 @@ export default function UserProfile() {
           <StyledP>{userInfo?.email}</StyledP>
 
           <StyledContainer>
-            <StyledP>{userInfo?.personalityTypeName}</StyledP>
+            <ProfileName>{userInfo?.personalityTypeName}</ProfileName>
             <StyledP>{userInfo?.personalityTypeDescription}</StyledP>
           </StyledContainer>
-          
+
 
         </>
       )}
-    </StyledContainer>
+    </ProfileContainer>
   );
 }
