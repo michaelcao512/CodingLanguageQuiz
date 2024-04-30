@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {StyledH1} from "@/Styles/GeneralStyles";
 import Link from "next/link";
 
+//Tim Component
 const UserCard = styled.div`
     border: 3px solid #ddd;
     padding: 16px;
@@ -39,9 +40,13 @@ function SearchProfile() {
     useEffect(() => {
         async function fetchUsers() {
             try {
+                // Fetch all users
                 const users = await getAllUsers();
+                // Map each user to fetch their personality type and compile data
                 const data = await Promise.all(users.map(async (user) => {
+                    // Fetch personality type by ID, defaulting to -1 if not provided
                     const personalityType = await getPersonalityType(user.personalityTypeId || -1);
+                    // Get personality type name or default to an empty string
                     const personalityTypeName = personalityType ? personalityType.name : "";
                     return {
                         id: user.id,
