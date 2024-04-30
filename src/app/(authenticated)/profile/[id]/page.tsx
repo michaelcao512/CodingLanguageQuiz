@@ -7,10 +7,15 @@ import { useEffect, useState } from "react";
 import { StyledContainer, StyledP, StyledH1 } from "@/Styles/GeneralStyles";
 import { PersonalityType } from "@prisma/client";
 
+
+/**
+ * Functional component to display user profile information.
+ */
 export default function UserProfile() {
-  const params = useParams<{ id: string }>();
+  const params = useParams<{ id: string }>(); // parse URL to grab user ID
 
   const [loading, setLoading] = useState(true);
+
   const [userInfo, setUserInfo] = useState<{
     id: number;
     name: string;
@@ -20,6 +25,11 @@ export default function UserProfile() {
     personalityTypeDescription: string;
   }>();
 
+  /**
+   * Matt's Component
+   * Grab user data with the parsed userID by calling the getUser() helper function
+   * @returns all user data
+   */
   useEffect(() => {
     async function getUserInfo() {
       try {
@@ -40,8 +50,10 @@ export default function UserProfile() {
           personalityTypeDescription: personalityTypeDescription
 
         };
+
         setUserInfo(data);
         setLoading(false);
+
       } catch (error) {
         console.error("Error fetching users", error);
       }
