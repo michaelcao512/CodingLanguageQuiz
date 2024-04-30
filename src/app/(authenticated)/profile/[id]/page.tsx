@@ -4,7 +4,7 @@ import { getPersonalityType, getUser } from "@/lib/database";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { StyledContainer, StyledP, StyledH1 } from "@/Styles/GeneralStyles";
+import { StyledContainer, StyledP, StyledH1, StyledInput } from "@/Styles/GeneralStyles";
 import { PersonalityType } from "@prisma/client";
 
 
@@ -68,8 +68,12 @@ export default function UserProfile() {
           <StyledH1>{userInfo?.name}</StyledH1>
           <StyledP>{userInfo?.biography}</StyledP>
           <StyledP>{userInfo?.email}</StyledP>
-          <StyledP>{userInfo?.personalityTypeName}</StyledP>
-          <StyledP>{userInfo?.personalityTypeDescription}</StyledP>
+
+          <StyledContainer>
+            <StyledP>{userInfo?.personalityTypeName}</StyledP>
+            <StyledP>{userInfo?.personalityTypeDescription}</StyledP>
+          </StyledContainer>
+          
 
         </>
       )}
