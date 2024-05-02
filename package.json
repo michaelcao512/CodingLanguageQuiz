@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate --no-engine && next build",
     "start": "next start",
     "lint": "next lint",
     "migrate": "prisma migrate dev",
@@ -14,17 +14,18 @@
   "dependencies": {
     "@next-auth/prisma-adapter": "^0.4.4-canary.81",
     "@prisma/client": "^5.13.0",
+    "@prisma/extension-accelerate": "^1.0.0",
     "@react-spring/web": "^9.7.3",
     "@types/bcryptjs": "^2.4.6",
     "bcryptjs": "^2.4.3",
+    "framer-motion": "^11.1.7",
     "next": "14.2.2",
     "next-auth": "^4.24.7",
     "prisma": "^5.13.0",
     "react": "^18",
     "react-dom": "^18",
     "styled-components": "^6.1.8",
-    "zod": "^3.22.5",
-    "framer-motion": "^11.1.7"
+    "zod": "^3.22.5"
   },
   "devDependencies": {
     "@types/node": "^20",
