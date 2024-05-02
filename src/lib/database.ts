@@ -267,42 +267,42 @@ export async function deletePersonalityType(id: number) {
  * @param description - The description of the personality type.
  */
 // TODO: updates a personality type given a personality type id, name, and description
-export async function updatePersonalityType(id: number, name: string, description: string) {
-    if (!name && !description) {
-        return {
-            error: "No fields to update"
-        }
-    }
-
-    const existingPersonality = await prisma.personalityType.findFirst({
-        where: {
-            id: id
-        }
-    });
-
-    if (!existingPersonality) {
-        return {
-            error: "Personality not found"
-        }
-    }
-
-    const data = {
-        name: existingPersonality.name,
-        description: existingPersonality.description
-    }
-
-    if (name) {
-        data.name = name;
-    }
-    if (description) {
-        data.description = description;
-    }
-
-    // const updatedPersonality = await prisma.personalityType.update({
-
-    // return updatedPersonality;
-
-}
+// export async function updatePersonalityType(id: number, name: string, description: string) {
+//     if (!name && !description) {
+//         return {
+//             error: "No fields to update"
+//         }
+//     }
+//
+//     const existingPersonality = await prisma.personalityType.findFirst({
+//         where: {
+//             id: id
+//         }
+//     });
+//
+//     if (!existingPersonality) {
+//         return {
+//             error: "Personality not found"
+//         }
+//     }
+//
+//     const data = {
+//         name: existingPersonality.name,
+//         description: existingPersonality.description
+//     }
+//
+//     if (name) {
+//         data.name = name;
+//     }
+//     if (description) {
+//         data.description = description;
+//     }
+//
+//     // const updatedPersonality = await prisma.personalityType.update({
+//
+//     // return updatedPersonality;
+//
+// }
 
 // USERCHOICES
 /**
