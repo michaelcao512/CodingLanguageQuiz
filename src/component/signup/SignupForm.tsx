@@ -69,7 +69,7 @@ function RegisterForm() {
             };
             updateQuizResults().then();
         }
-    }, [userRegistered, loading]);
+    }, [userRegistered, loading, context.userId, context.userChoices, formState.formData.email, formState.formData.password]);
 
     // refresh upon loading or error changes
     useEffect(() => {
@@ -85,7 +85,7 @@ function RegisterForm() {
     }
 
     // submit form
-    //  check if email is avaliable
+    //  check if email is available
     // if email is available, register user and display error message if not
     // if user is registered, set userRegistered to true to continue flow (above in useEffect)
     async function handleSubmit() {

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 
 
-export async function GET({ params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
     const id = params.id;
     const question: Question | null = await prisma.question.findUnique({ where: { id: parseInt(id) } });
     return NextResponse.json(question);
